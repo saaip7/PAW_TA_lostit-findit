@@ -52,8 +52,18 @@ const updateBarangStatus = async (req, res) => {
   }
 };
 
+const deleteBarang = async (req, res) => {
+  try {
+    await Barang.findByIdAndDelete(req.params.id);
+    res.json({ message: "Barang deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   createBarang,
   getAllBarang,
   updateBarangStatus,
+  deleteBarang,
 };
