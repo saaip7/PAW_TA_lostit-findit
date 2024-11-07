@@ -11,7 +11,13 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        lightBlue1: "#DEE7F9",
+        lightBlue2: "#CFDDFB",
+        darkBlue1: "#1457D2",
       },
+      fontFamily: {
+        inter: ['Inter', 'sans-serif']
+      }
     },
   },
   plugins: [],
