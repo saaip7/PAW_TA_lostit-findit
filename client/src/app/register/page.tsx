@@ -92,7 +92,7 @@ const Register: React.FC = () => {
                         error={errors.phone}
                     />
                     <Button variant="default" className="w-full h-12 mt-4">
-                        Masuk
+                        Daftar
                     </Button>
                     <div className="flex items-center mt-4 justify-center">
                         <div className="flex items-center font-extralight">
