@@ -7,6 +7,8 @@ interface CustomTextBoxProps {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: string;
     error?: string | boolean;
+    autoComplete?: string;
+    className?: string;
 }
 
 const CustomTextBox: React.FC<CustomTextBoxProps> = ({
@@ -16,6 +18,7 @@ const CustomTextBox: React.FC<CustomTextBoxProps> = ({
     onChange,
     placeholder,
     error = false,
+    className = "",
     ...props
 }) => {
     return (
@@ -32,7 +35,8 @@ const CustomTextBox: React.FC<CustomTextBoxProps> = ({
                 value={value}
                 onChange={onChange}
                 placeholder={placeholder}
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight ${
+                
+                className={`shadow appearance-none border rounded-xl w-full h-12 py-2 px-3 text-gray-700 leading-tight ${
                     error ? "border-red-500" : "border-gray-300"
                 } focus:outline-none focus:ring-2 focus:ring-lightBlue-500`}
                 {...props}

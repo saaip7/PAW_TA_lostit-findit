@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-darkBlue1 text-white hover:bg-lightBlue1 font-medium font-inter",
+        default: "bg-darkBlue1 text-white font-medium hover:bg-darkBlue1 hover:opacity-50 rounded-xl",
         outline:
           "border border-accent bg-transparent hover:text-accent-foreground hover:bg-color-white text-color-white font-medium font-['Inter']",
         ghost: "hover:bg-accent hover:text-accent-foreground",

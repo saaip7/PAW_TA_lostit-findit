@@ -15,9 +15,6 @@ const config: Config = {
         lightBlue2: "#CFDDFB",
         darkBlue1: "#1457D2",
       },
-      fontFamily: {
-        inter: ['Inter', 'sans-serif']
-      }
     },
   },
   plugins: [],
