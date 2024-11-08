@@ -26,7 +26,7 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 p-4 mx-3 min-h-screen">
+        <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 p-4 mx-auto min-h-screen bg-white w-[100%]">
             <div className="h-1/2 flex flex-col">
             <Link href="/" className="self-start">
                 <div className="mb-16">
@@ -34,10 +34,10 @@ const Login: React.FC = () => {
                 </div>
             </Link>
             <div className="max-w-sm mx-auto flex flex-col space-y-4">
-                <div className="text-black font-semibold text-center text-4xl">
+                <div className="text-black font-bold text-center text-4xl">
                     Masuk Sekarang
                 </div>
-                <div className="text-black text-md font-extralight">
+                <div className="text-black text-md font-regular text-gray">
                     Masuk ke akunmu untuk menggunakan seluruh fitur kami.
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -70,7 +70,7 @@ const Login: React.FC = () => {
                     <div className="flex items-center justify-between mt-4">
                         <label className="flex items-center space-x-2">
                             <input type="checkbox" className="form-checkbox"></input>
-                            <span>Ingat aku</span>
+                            <span className="text-darkGray">Ingat aku</span>
                         </label>
                         <Link href="" className="text-darkBlue1 hover:underline">
                             Lupa Password
@@ -80,8 +80,8 @@ const Login: React.FC = () => {
                         Masuk
                     </Button>
                     <div className="flex items-center mt-4 justify-center">
-                        <div className="flex items-center font-extralight">
-                            <span>Belum punya akun?</span>
+                        <div className="flex items-center font-regular">
+                            <span className="text-darkGray">Belum punya akun?</span>
                         </div>
                         <Link href="/register" className="text-darkBlue1 hover:underline ml-2">
                             Daftar

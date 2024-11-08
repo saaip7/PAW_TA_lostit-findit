@@ -24,7 +24,7 @@ const CustomTextBox: React.FC<CustomTextBoxProps> = ({
     return (
         <div className="relative mb-4">
             <label
-                className="block text-gray-700 text-sm font-bold mb-2"
+                className="block text-darkGray text-sm font-bold mb-2"
                 htmlFor={label}
             >
                 {label}

@@ -34,7 +34,7 @@ const Register: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 p-4 mx-3 min-h-screen">
+        <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 p-4 mx-auto min-h-screen bg-white w-[100%]">
             <div className="h-1/2 flex flex-col">
             <Link href="/" className="self-start">
                 <div className="mb-16">
@@ -45,7 +45,7 @@ const Register: React.FC = () => {
                 <div className="text-black font-semibold text-center text-4xl">
                     Daftarkan Dirimu
                 </div>
-                <div className="text-black text-md font-extralight">
+                <div className="text-black text-md font-regular text-gray">
                     Buat akun untuk merasakan segala fitur yang tersedia 
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -95,8 +95,8 @@ const Register: React.FC = () => {
                         Daftar
                     </Button>
                     <div className="flex items-center mt-4 justify-center">
-                        <div className="flex items-center font-extralight">
-                            <span>Sudah punya akun?</span>
+                        <div className="flex items-center font-regular">
+                            <span className="text-darkGray">Sudah punya akun?</span>
                         </div>
                         <Link href="/login" className="text-darkBlue1 hover:underline ml-2">
                             Masuk
