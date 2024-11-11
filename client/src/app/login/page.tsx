@@ -6,13 +6,20 @@ import { Button } from "@/app/components/button";
 import Link from "next/link";
 import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa install pake 'npm install react-feather --legacy-peer-deps'
 import Logo from "@/app/components/logo";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { ApiResponse } from "../types/user";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState<{[key: string]: string}>({});
     const [showPassword, setShowPassword] = useState(false); 
-    const handleSubmit = (e: React.FormEvent) => {
+    const [rememberMe, setRememberMe] = useState(false);
+
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         const newErrors: { [key: string]: string } = {};
@@ -21,8 +28,33 @@ const Login: React.FC = () => {
         setErrors(newErrors);
     
         if (Object.keys(newErrors).length === 0) {
-          console.log('Form submitted', { email, password });
-        }
+            try {
+              const response = await fetch("http://localhost:5000/api/user/login", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ email, password }),
+              });
+              const data: ApiResponse = await response.json();
+              if (response.ok) {
+                alert(data.message);
+                if (data.token) {
+                  Cookies.set("authToken", data.token, {
+                    expires: rememberMe ? 7 : 1 / 24, // 7 days if rememberMe, 1 hour if not
+                    sameSite: "Strict",
+                    secure: process.env.NODE_ENV === "production",
+                  });
+                  router.push("/dashboard");
+                }
+              } else {
+                alert(data.message);
+              }
+            } catch (error) {
+              console.error("Error:", error);
+              alert("An error occurred. Please try again.");
+            }
+          }
     };
 
     return (
@@ -37,7 +69,7 @@ const Login: React.FC = () => {
                 <div className="text-black font-bold text-center text-4xl">
                     Masuk Sekarang
                 </div>
-                <div className="text-black text-md font-regular text-gray">
+                <div className="text-md font-regular text-gray">
                     Masuk ke akunmu untuk menggunakan seluruh fitur kami.
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -69,7 +101,8 @@ const Login: React.FC = () => {
                     </div>
                     <div className="flex items-center justify-between mt-4">
                         <label className="flex items-center space-x-2">
-                            <input type="checkbox" className="form-checkbox"></input>
+                            <input type="checkbox" name="rememberMe" className="form-checkbox" checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}></input>
                             <span className="text-darkGray">Ingat aku</span>
                         </label>
                         <Link href="" className="text-darkBlue1 hover:underline">

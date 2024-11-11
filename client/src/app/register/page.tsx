@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa install pake 'npm install react-feather --legacy-peer-deps'
 import Logo from "@/app/components/logo";
 import { useRouter } from "next/navigation";
-import { UserSignUp, ApiResponse } from "@/app/types/user";
+import { ApiResponse } from "@/app/types/user";
 
 const Register: React.FC = () => {
     const [email, setEmail] = useState('');
