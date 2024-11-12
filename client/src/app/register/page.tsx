@@ -45,7 +45,7 @@ const Register: React.FC = () => {
                 <div className="text-black font-semibold text-center text-4xl">
                     Daftarkan Dirimu
                 </div>
-                <div className="text-black text-md font-regular text-gray">
+                <div className="text-md font-regular text-gray">
                     Buat akun untuk merasakan segala fitur yang tersedia 
                 </div>
                 <form onSubmit={handleSubmit} className="space-y-4">
