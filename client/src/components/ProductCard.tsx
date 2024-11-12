@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/button";
 import { useRouter } from "next/navigation"; // Using next/navigation for routing in Next.js 13
 
@@ -17,15 +17,20 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-    const formattedDate = new Intl.DateTimeFormat('id-ID', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        timeZone: 'Asia/Jakarta',
-    }).format(product.eventDate); 
+    const [formattedDate, setFormattedDate] = useState("");
     const router = useRouter();
+
+    useEffect(() => {
+        const date = new Intl.DateTimeFormat('id-ID', {
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: 'Asia/Jakarta',
+        }).format(product.eventDate);
+        setFormattedDate(date + " WIB");
+    }, [product.eventDate]);
 
     const handleButtonClick = () => {
         router.push(`/product/${product.productId}`);
