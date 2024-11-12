@@ -1,4 +1,4 @@
-import { DetailProductCard } from "../components/detailProductCard";
+import { DetailProductCard } from "@/components/detailProductCard";
 
 
 
