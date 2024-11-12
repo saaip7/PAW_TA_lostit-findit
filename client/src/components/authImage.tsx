@@ -7,8 +7,8 @@ const AuthImage: React.FC = () => {
                 style={{ transform: 'rotate(-163deg)', borderRadius:'99px'}}>
             </div>
             <div className="absolute justify-center w-3/4 h-3/4">
-                    <img src="/auth_img.png"></img>
-                </div>
+                <img src="/auth_img.png"></img>
+            </div>
         </div>
     )
 }

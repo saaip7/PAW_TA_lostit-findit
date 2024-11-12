@@ -1,11 +1,11 @@
 "use client";
-import AuthImage from "@/app/components/authImage";
-import CustomTextBox from "@/app/components/customTextBox";
+import AuthImage from "@/components/authImage";
+import CustomTextBox from "@/components/customTextBox";
 import React, { useState } from "react";
-import { Button } from "@/app/components/button";
+import { Button } from "@/components/button";
 import Link from "next/link";
 import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa install pake 'npm install react-feather --legacy-peer-deps'
-import Logo from "@/app/components/logo";
+import Logo from "@/components/logo";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { ApiResponse } from "../types/user";

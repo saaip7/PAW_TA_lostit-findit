@@ -36,7 +36,7 @@ const CustomTextBox: React.FC<CustomTextBoxProps> = ({
                 onChange={onChange}
                 placeholder={placeholder}
                 
-                className={`shadow appearance-none border rounded-xl w-full h-12 py-2 px-3 text-gray-700 leading-tight ${
+                className={`shadow appearance-none border rounded-xl w-full h-12 py-2 px-3 text-black leading-tight ${
                     error ? "border-red-500" : "border-gray-300"
                 } focus:outline-none focus:ring-2 focus:ring-lightBlue-500`}
                 {...props}

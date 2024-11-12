@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Search, Menu, X, Plus } from 'lucide-react';
 import Image from 'next/image';
-import { Button } from './button';
+import { Button } from '@/components/button';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +53,7 @@ const Navbar = () => {
                 </Button>
               </a>
             ) : (
-              <a href="/" target="_blank" rel="noopener noreferrer">
+              <a href="/login" rel="noopener noreferrer">
                 <Button variant="default" className="px-4 py-2 rounded-md">
                   Masuk Sekarang
                 </Button>
