@@ -6,6 +6,8 @@ import { Button } from "@/app/components/button";
 import Link from "next/link";
 import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa install pake 'npm install react-feather --legacy-peer-deps'
 import Logo from "@/app/components/logo";
+import { useRouter } from "next/navigation";
+import { ApiResponse } from "@/app/types/user";
 
 const Register: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -15,7 +17,9 @@ const Register: React.FC = () => {
     const [phone, setPhone] = useState('');
     const [errors, setErrors] = useState<{[key: string]: string}>({});
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
     
         const newErrors: { [key: string]: string } = {};
@@ -29,7 +33,25 @@ const Register: React.FC = () => {
         setErrors(newErrors);
     
         if (Object.keys(newErrors).length === 0) {
-          console.log('Form submitted', { email, password });
+          try {
+            const response = await fetch("http://localhost:5000/api/user/register", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ nama: name, email, password, noHP: phone }),
+            });
+            const data: ApiResponse = await response.json();
+            if (response.ok) {
+              alert(data.message);
+              router.push("/login");
+            } else {
+              alert(data.message);
+            }
+          } catch (error) {
+            console.error("Error:", error);
+            alert("An error occurred. Please try again.");
+          }
         }
     };
 
