@@ -10,8 +10,8 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
 
   return (
-    <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[10rem] shadow-md border-b-2 border-gray-200">
-      <div className="mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[8rem] shadow-md border-b-2 border-gray-200">
+      <div className="mx-auto">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
