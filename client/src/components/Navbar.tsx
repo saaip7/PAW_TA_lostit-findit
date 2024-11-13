@@ -1,13 +1,24 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Menu, X, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/button';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // State to manage login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const loggedIn = Cookies.get('isLoggedIn') === 'true';
+    setIsLoggedIn(loggedIn);
+  }, []);
+
+  const handleLogout = () => {
+    Cookies.remove('isLoggedIn');
+    setIsLoggedIn(false);
+  };
 
   return (
     <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[8rem] shadow-md border-b-2 border-gray-200">
@@ -35,29 +46,36 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn ? (
-              <a href="/" target='_blank' rel="noopener noreferrer">
-                <Button variant="outline" className="px-4 py-2 rounded-md">
-                  <Plus/>
-                </Button>
-              </a>
-            ): null}
-            <a href="/" target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="px-4 py-2 rounded-md">
-                Lapor Barang Temuan
-              </Button>
-            </a>
-            {isLoggedIn ? (
-              <a href="/profile" target="_blank" rel="noopener noreferrer">
-                <Button variant="default" className="px-4 py-2 rounded-md">
-                  Keluar
-                </Button>
-              </a>
+              <>
+                <a href="/" rel="noopener noreferrer">
+                  <Button variant="outline" className="px-4 py-2 rounded-md">
+                    <Plus />
+                  </Button>
+                </a>
+                <a href="/" rel="noopener noreferrer">
+                  <Button variant="outline" className="px-4 py-2 rounded-md">
+                    Dashboard
+                  </Button>
+                </a>
+                <a href="/" onClick={handleLogout} rel="noopener noreferrer">
+                  <Button variant="default" className="px-4 py-2 rounded-md">
+                    Keluar
+                  </Button>
+                </a>
+              </>
             ) : (
-              <a href="/login" rel="noopener noreferrer">
-                <Button variant="default" className="px-4 py-2 rounded-md">
-                  Masuk Sekarang
-                </Button>
-              </a>
+              <>
+                <a href="/login" rel="noopener noreferrer">
+                  <Button variant="outline" className="px-4 py-2 rounded-md">
+                    Lapor Barang Temuan
+                  </Button>
+                </a>
+                <a href="/login" rel="noopener noreferrer">
+                  <Button variant="default" className="px-4 py-2 rounded-md">
+                    Masuk Sekarang
+                  </Button>
+                </a>
+              </>
             )}
           </div>
 
@@ -101,9 +119,12 @@ const Navbar = () => {
                 Profile
               </button>
             ) : (
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Masuk Sekarang
-              </button>
+              <a href="/login">
+                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                  Masuk Sekarang
+                </button>
+              </a>
+              
             )}
           </div>
         </div>
