@@ -45,7 +45,7 @@ const Login: React.FC = () => {
                     sameSite: "Strict",
                     secure: process.env.NODE_ENV === "production",
                   });
-                  router.push("/dashboard");
+                  router.push("/");
                 }
               } else {
                 alert(data.message);
