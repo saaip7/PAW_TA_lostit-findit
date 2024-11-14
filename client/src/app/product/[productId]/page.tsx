@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { DetailProductCard } from "@/components/detailProductCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/button";
+import { Footer } from "@/components/Footer";
 
 // Data produk sementara (bisa menggunakan API atau sumber data lain di aplikasi sebenarnya)
 const products = [
@@ -91,6 +92,8 @@ export default function ProductDetailPage({
                 style={{ transform: 'rotate(150deg)', borderRadius:'99px', width:'700px', height:'500px'}}/>
         </div>
       </section>
+
+      <Footer/>
     </div>
     </>
   );
