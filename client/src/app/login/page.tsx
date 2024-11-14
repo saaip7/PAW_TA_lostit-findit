@@ -40,12 +40,13 @@ const Login: React.FC = () => {
               if (response.ok) {
                 alert(data.message);
                 if (data.token) {
-                  Cookies.set("authToken", data.token, {
-                    expires: rememberMe ? 7 : 1 / 24, // 7 days if rememberMe, 1 hour if not
-                    sameSite: "Strict",
-                    secure: process.env.NODE_ENV === "production",
+                    Cookies.set("authToken", data.token, {
+                        expires: rememberMe ? 7 : 1 / 24, // 7 days if rememberMe, 1 hour if not
+                        sameSite: "Strict",
+                        secure: process.env.NODE_ENV === "production",
                   });
-                  router.push("/dashboard");
+                    Cookies.set('isLoggedIn', 'true');
+                    router.push("/");
                 }
               } else {
                 alert(data.message);
