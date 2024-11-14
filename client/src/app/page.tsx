@@ -1,7 +1,4 @@
 "use client";
-import Image from "next/image";
-import AuthImage from "../components/authImage";
-import Login from "./login/page";
 import ProductCard from "@/components/ProductCard";
 import React, {useState} from "react";
 import {
@@ -23,6 +20,7 @@ const products = [
     eventDate: new Date('2024-11-10T10:30:00+07:00'),
     description: 'Botol tumbler ada sticker KMTETI, lecet di bagian tutup, tutup biru, botol putih',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '2',
@@ -31,6 +29,7 @@ const products = [
     eventDate: new Date('2024-11-12T14:00:00+07:00'),
     description: 'Botol pink, baru, belum pernah dipakai',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '3',
@@ -39,6 +38,7 @@ const products = [
     eventDate: new Date('2024-11-13T09:00:00+07:00'),
     description: 'Botol kaca besar, ada goresan di sisi kanan',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '4',
@@ -47,6 +47,7 @@ const products = [
     eventDate: new Date('2024-11-14T08:00:00+07:00'),
     description: 'Botol tumbler hitam dengan logo baru, kondisi sangat baik',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '5',
@@ -55,6 +56,7 @@ const products = [
     eventDate: new Date('2024-11-15T11:00:00+07:00'),
     description: 'Botol biru besar, ada sedikit penyok',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '6',
@@ -63,6 +65,7 @@ const products = [
     eventDate: new Date('2024-11-15T11:00:00+07:00'),
     description: 'Botol biru besar, ada sedikit penyok',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '7',
@@ -71,6 +74,7 @@ const products = [
     eventDate: new Date('2024-11-15T11:00:00+07:00'),
     description: 'Botol biru besar, ada sedikit penyok',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '8',
@@ -79,6 +83,7 @@ const products = [
     eventDate: new Date('2024-11-15T11:00:00+07:00'),
     description: 'Botol biru besar, ada sedikit penyok',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '9',
@@ -87,6 +92,7 @@ const products = [
     eventDate: new Date('2024-11-15T11:00:00+07:00'),
     description: 'Botol biru besar, ada sedikit penyok',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
   {
     productId: '10',
@@ -95,6 +101,7 @@ const products = [
     eventDate: new Date('2024-11-15T11:00:00+07:00'),
     description: 'Botol biru besar, ada sedikit penyok',
     imageUrl: '/image.png',
+    status: 'Not Found',
   },
 ];
 
@@ -113,7 +120,7 @@ export default function Home() {
   };
 
   return (
-    <div className="mt-5 bg-whiteBg flex flex-col justify-center">
+    <div className="bg-whiteBg flex flex-col justify-center">
       <div>
         <Navbar />
       </div>
@@ -153,5 +160,6 @@ export default function Home() {
         </PaginationContent>
       </Pagination>
     </div>
+    
   );
 }
