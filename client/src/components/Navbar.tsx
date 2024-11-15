@@ -5,6 +5,7 @@ import { Search, Menu, X, Plus } from 'lucide-react';
 import Image from 'next/image';
 import { Button } from '@/components/button';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,9 +26,11 @@ const Navbar = () => {
       <div className="mx-auto">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <Link href="/" rel="noopener noreferrer">
+          <div className={`hover:scale-110 transition-transform duration-300 will-change-transform`}>
             <Image src="/logo.svg" alt="Logo" width={62} height={62} />
           </div>
+          </Link>
 
           {/* Search Bar - Hidden on mobile */}
           <div className="hidden md:block flex-1 max-w-2xl mx-8">
