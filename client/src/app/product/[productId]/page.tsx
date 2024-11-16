@@ -5,38 +5,49 @@ import { DetailProductCard } from "@/components/detailProductCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
+import axios from "axios";
+import React from "react";
 
-// Data produk sementara (bisa menggunakan API atau sumber data lain di aplikasi sebenarnya)
-const products = [
-  {
-    productId: "1",
-    name: "Botol Tumbler tutup biru",
-    location: "Depan KMTETI di tempat refill deket pintu ditemuin satpam yang pake penci",
-    eventDate: new Date("2024-11-10T10:30:00+07:00"),
-    description:
-      "Botol tumbler ada sticker KMTETI, lecet di bagian tutup, tutup biru, botol putih",
-    imageUrl: "/image.png",
-    status: 'Not Found',
-  },
-  {
-    productId: "2",
-    name: "Botol Minum Pink",
-    location: "Di kantin dekat lobi utama",
-    eventDate: new Date("2024-11-12T14:00:00+07:00"),
-    description: "Botol pink, baru, belum pernah dipakai",
-    imageUrl: "/image.png",
-    status: 'Found',
-  },
-  // Add more products as needed...
-];
+interface Product {
+  productId: string;
+  foto: string;
+  namaBarang: string;
+  deskripsiBarang: string;
+  tempatDitemukan: string;
+  waktuDitemukan: string;
+  namaPenemu: string;
+  kontak: string;
+  statusBarang: string;
+}
 
-export default function ProductDetailPage({
+async function getProductData(productId: string): Promise<Product | null> {
+  try {
+    const response = await fetch(`http://localhost:5000/api/barang/${productId}`, {
+      method: "GET",  
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const data: Product = await response.json(); 
+    return data;
+  } catch (error) {
+    console.error("Error fetching product:", error);
+    return null;
+  }
+}
+
+export default async function ProductDetailPage({
   params,
 }: {
-  params: { productId: string };
+  params: { productId: string }
 }) {
-  const product = products.find((p) => p.productId === params.productId);
 
+  const { productId } = await params;
+  const product = await getProductData(productId);
   if (!product) {
     return notFound(); // Show 404 page if product is not found
   }
@@ -47,12 +58,12 @@ export default function ProductDetailPage({
     <div className="relative bg-white min-h-screen w-full">
       <div className="py-[4rem]">
         <DetailProductCard
-          imageUrl={product.imageUrl}
-          title= {product.name}
-          location={product.location}
-          date={product.eventDate.toLocaleString('id-ID')}
-          status={product.status}
-          description={product.description}
+          foto={product.foto}
+          namaBarang= {product.namaBarang}
+          tempatDitemukan={product.tempatDitemukan}
+          waktuDitemukan={new Date(product.waktuDitemukan).toLocaleString('id-ID')}
+          statusBarang={product.statusBarang}
+          deskripsiBarang={product.deskripsiBarang}
         />
       </div>
       
@@ -79,7 +90,7 @@ export default function ProductDetailPage({
                 </a>
               </div>
             </div>
-            <div className="ml-10">
+            <div className="ml-10 hidden lg:block">
               <img src="/manConfused.png" alt="orang bingung" 
                     className="absolute -bottom-[320px] right-28"
                     style={{width:'600px', height:'600px'}}/>

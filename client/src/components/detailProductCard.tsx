@@ -3,30 +3,30 @@ import { Button } from './button';
 import { FaWhatsapp } from "react-icons/fa";
 
 interface DetailProps {
-    imageUrl: string;
-    title: string;
-    location: string;
-    date: string;
-    status: string;
-    description: string;
-  }
+  foto: string;
+  namaBarang: string;
+  deskripsiBarang: string;
+  tempatDitemukan: string;
+  waktuDitemukan: string;
+  statusBarang: string;
+}
   
 export const DetailProductCard: React.FC<DetailProps> = ({
-  imageUrl,
-  title,
-  location,
-  date,
-  status,
-  description
+  foto,
+  namaBarang,
+  tempatDitemukan,
+  waktuDitemukan,
+  statusBarang,
+  deskripsiBarang
 }) => {
   return (
     <article className="flex flex-wrap gap-9 items-start px-5 py-6 bg-white rounded-2xl border border-gray-200 border-solid shadow-md mx-[4rem] sm:mx-[6rem] md:mx-[8rem]">
       <div className="flex overflow-hidden flex-col rounded-lg min-w-[240px] w-[404px]">
-        <img loading="lazy" src={imageUrl} alt={title} className="object-cover w-full aspect-[1.18] " />
+        <img loading="lazy" src={foto} alt={namaBarang} className="object-cover w-full aspect-[1.18] " />
       </div>
       <div className="flex flex-col items-start pl-3 font-bold min-w-[240px] w-[529px] max-md:max-w-full">
         <h2 className="flex flex-col max-w-full text-2xl text-stone-950 w-[302px]">
-          {title}
+          {namaBarang}
         </h2>
         <div className="flex flex-col self-stretch mt-5 w-full font-medium max-w-[517px] max-md:max-w-[1280px]">
             <div className="flex flex-wrap items-start py-2 w-full text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
@@ -34,7 +34,7 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                 Tempat
                 </div>
                 <div className="flex-1 shrink gap-2.5 px-3 pt-1 pb-0.5 min-w-[240px] leading-5 text-darkGray">
-                : {location}
+                : {tempatDitemukan}
                 </div>
             </div>
             <div className="flex flex-wrap items-start py-2 w-full text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
@@ -42,7 +42,7 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                 Tanggal
                 </div>
                 <div className="flex-1 shrink gap-2.5 px-3 pt-1 pb-0.5 min-w-[240px] text-darkGray">
-                : {date}
+                : {waktuDitemukan}
                 </div>
             </div>
             <div className="flex flex-wrap items-start py-2 w-full border-b border-solid border-b-gray-200 max-md:max-w-full">
@@ -51,13 +51,13 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                 </div>
                 <div className="flex flex-1 shrink gap-2.5 items-start px-3 pt-1 pb-0.5 text-base leading-none text-red-700 basis-0 min-w-[240px]">
                     {/* Ganti status dengan status yang sesuai */}
-                {status === 'Found' ? (
+                {statusBarang === 'Sudah diambil' ? (
                     <div className="gap-1 self-stretch px-2 py-1 bg-green-50 border border-green-300 border-solid rounded-[50px] text-green-700 text-sm">
-                        {status}
+                        Found
                     </div>
                 ) : (
                     <div className="gap-1 self-stretch px-2 bg-red-50 border border-red-300 border-solid rounded-[50px] text-red-700 text-sm">
-                        {status}
+                        Not Found
                     </div>
                 )}
                 </div>
@@ -67,7 +67,7 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                 Deskripsi
                 </div>
                 <div className="flex-1 shrink gap-2.5 px-3 py-0.5 h-20 leading-5 min-w-[240px] text-darkGray">
-                : {description}
+                : {deskripsiBarang}
                 </div>
             </div>
             <div className='py-2'>
