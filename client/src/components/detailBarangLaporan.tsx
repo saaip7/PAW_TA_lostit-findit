@@ -37,11 +37,11 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
       <div className="flex overflow-hidden flex-col rounded-lg min-w-[240px] w-[404px]">
         <img loading="lazy" src={foto} alt={namaBarang} className="object-cover w-full aspect-[1.18] " />
       </div>
-      <div className="flex flex-col items-start pl-3 font-bold min-w-[240px] w-[529px] max-md:max-w-full">
-        <h2 className="flex flex-col max-w-full text-2xl text-stone-950 w-[302px]">
+      <div className="flex flex-col items-start pl-3 font-bold min-w-[240px] w-[814px] max-md:max-w-full">
+        <h2 className="flex flex-col max-w-full text-2xl text-stone-950">
           {namaBarang}
         </h2>
-        <div className="flex flex-col self-stretch mt-5 w-full font-medium max-w-[517px] max-md:max-w-[1280px]">
+        <div className="flex flex-col self-stretch mt-5 w-full font-medium max-md:max-w-[1280px]">
             <div className="flex flex-wrap items-start py-2 w-full text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
                 <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 whitespace-nowrap w-[194px] text-darkGray">
                   Tempat
@@ -74,7 +74,7 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
                     )}
                 </div>
             </div>
-            <div className="flex flex-wrap items-start py-2 w-full text-sm text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
+            <div className="flex flex-wrap items-start py-2 w-full text-sm text-gray-500 border-solid border-b-gray-200 max-md:max-w-full">
                 <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 leading-none whitespace-nowrap w-[194px] text-darkGray">
                   Deskripsi
                 </div>
