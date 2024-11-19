@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const barangSchema = new mongoose.Schema(
     {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Users',
+            required: true
+        },
         foto: {
             type: String,
             required: true,

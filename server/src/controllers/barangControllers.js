@@ -11,6 +11,7 @@ const createBarang = async (req, res) => {
     }
 
     const newBarang = new Barang({
+      userId,
       foto,
       namaBarang,
       deskripsiBarang,
@@ -61,9 +62,19 @@ const deleteBarang = async (req, res) => {
   }
 };
 
+const getUserBarang = async (req, res) => {
+  try {
+    const items = await Barang.find({ userId: req.user.id });
+    res.json(items);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   createBarang,
   getAllBarang,
   updateBarangStatus,
   deleteBarang,
+  getUserBarang,
 };
