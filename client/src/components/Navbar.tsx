@@ -55,7 +55,7 @@ const Navbar = () => {
                     <Plus />
                   </Button>
                 </a>
-                <a href="/" rel="noopener noreferrer">
+                <a href="/dashboard" rel="noopener noreferrer">
                   <Button variant="outline" className="px-4 py-2 rounded-md">
                     Dashboard
                   </Button>
