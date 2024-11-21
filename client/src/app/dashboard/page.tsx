@@ -9,8 +9,12 @@ import { Footer } from "@/components/Footer";
 import CustomTextBox from "@/components/customTextBox";
 import Loading from '@/components/Loading';
 import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangModal';
+import useAuth from '@/hooks/useAuth';
+import Cookies from 'js-cookie';
 
 export default function Dashboard() {
+  useAuth();
+
   const [filterStatus, setFilterStatus] = useState('belum');
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -32,12 +36,87 @@ export default function Dashboard() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [address, setAddress] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+  const [noHP, setnoHP] = useState('');
+
+  const handleUpdateProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    if (password || confirmPassword) {
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+    }
+  
+    try {
+      const token = Cookies.get('authToken');
+      const userData: any = {};
+  
+      if (name) userData.nama = name;
+      if (email) userData.email = email; 
+      if (password) userData.password = password;
+      if (noHP) userData.noHP = noHP;
+  
+      // Get the current user first to get their ID
+      const userResponse = await fetch('http://localhost:5000/api/user/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const user = await userResponse.json();
+  
+      // Then update using the user's ID
+      const response = await fetch(`http://localhost:5000/api/user/${user._id}`, {
+        method: 'PATCH', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(userData)
+      });
+  
+      if (response.ok) {
+        alert("Profile updated successfully!");
+        setPassword('');
+        setConfirmPassword('');
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert("An error occurred while updating profile");
+    }
+  };
 
   useEffect(() => {
-    // Set loading to false after the component mounts
-    setIsLoading(false);
+    const fetchUserData = async () => {
+      try {
+        const token = Cookies.get('authToken');
+        const response = await fetch('http://localhost:5000/api/user/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+  
+        if (response.ok) {
+          const userData = await response.json();
+          // Populate the form fields with user data
+          setName(userData.nama);
+          setEmail(userData.email);
+          setnoHP(userData.noHP); // If address exists in your user model
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    fetchUserData();
   }, []);
 
   if (isLoading) {
@@ -53,7 +132,7 @@ export default function Dashboard() {
             Dashboard Pelapor
           </div>
           <div className="mt-4 ml-28 mr-28 mb-16">
-            <Tabs defaultValue="profile">
+            <Tabs defaultValue="barang">
               <TabsList>
                 <TabsTrigger value="profile">Profile</TabsTrigger>
                 <TabsTrigger value="barang">Barang</TabsTrigger>
@@ -66,7 +145,7 @@ export default function Dashboard() {
                 </div>
                 
                 <div className="mt-8 w-full">
-                  <form className="space-y-1">
+                  <form onSubmit={handleUpdateProfile} className="space-y-1">
                     <div className="grid grid-cols-[200px_1fr] items-center gap-8">
                       <label className="text-[#667479] text-lg">Nama</label>
                       <CustomTextBox
@@ -93,7 +172,7 @@ export default function Dashboard() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Masukkan password baru"
+                        placeholder="********"
                         autoComplete="off"
                       />
                     </div>
@@ -104,18 +183,18 @@ export default function Dashboard() {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Konfirmasi password baru"
+                        placeholder="********"
                         autoComplete="off"
                       />
                     </div>
 
-                    <div className="grid grid-cols-[200px_1fr] items-start gap-8">
-                      <label className="text-[#667479] text-lg pt-2">Alamat</label>
-                      <textarea
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="Masukkan alamat"
-                        className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black leading-tight border-gray-300 focus:outline-none focus:ring-2 focus:ring-lightBlue-500 min-h-[100px] resize-none"
+                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
+                      <label className="text-[#667479] text-lg">No WhatsApp</label>
+                      <CustomTextBox
+                        type="tel"
+                        value={noHP}
+                        onChange={(e) => setnoHP(e.target.value)}
+                        placeholder="Masukkan Nomor WhatsApp"
                       />
                     </div>
 

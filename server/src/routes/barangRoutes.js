@@ -2,7 +2,7 @@ const barangRouter = require("express").Router();
 const { getOneBarang } = require("../middlewares/barangMiddlewares");
 const { authenticateToken } = require('../middlewares/authMiddlewares');
 
-const { createBarang, getAllBarang, updateBarangStatus, deleteBarang, getUserBarang} = require("../controllers/barangControllers");
+const { createBarang, getAllBarang, updateBarangStatus, deleteBarang, getUserBarang, editBarang} = require("../controllers/barangControllers");
 
 barangRouter.post("/", createBarang);
 barangRouter.get("/", getAllBarang);
@@ -12,6 +12,6 @@ barangRouter.get("/:id", getOneBarang, (req, res) => {
 });
 barangRouter.patch("/:id", getOneBarang, updateBarangStatus);
 barangRouter.delete("/:id", deleteBarang);
-
+barangRouter.put("/:id", getOneBarang, editBarang);
 
 module.exports = barangRouter;
