@@ -24,6 +24,7 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
   barangId
 }) => {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [localStatus, setLocalStatus] = useState(statusBarang);
 
     const handleEditClick = () => {
       setIsEditModalOpen(true);
@@ -35,19 +36,69 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
       setIsEditModalOpen(false);
     };
 
+    const handleStatusUpdate = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            statusBarang: 'Sudah diambil'
+          })
+        });
+
+        if (response.ok) {
+          setLocalStatus('Sudah diambil');
+          alert('Status updated successfully');
+          // You might want to trigger a refresh of the parent component
+          window.location.reload();
+        } else {
+          console.error('Failed to update status');
+        }
+      } catch (error) {
+        console.error('Error updating status:', error);
+      }
+    };
+
+    const handleDelete = async () => {
+      // Show confirmation dialog first
+      if (window.confirm('Are you sure you want to delete this item?')) {
+        try {
+          const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          });
+    
+          if (response.ok) {
+            alert('Item deleted successfully');
+            window.location.reload(); // Refresh the page to update the list
+          } else {
+            console.error('Failed to delete item');
+            alert('Failed to delete item');
+          }
+        } catch (error) {
+          console.error('Error deleting item:', error);
+          alert('Error deleting item');
+        }
+      }
+    };
+
   return (
     <article className="relative flex flex-wrap gap-9 items-start px-5 py-6 bg-white rounded-2xl border border-gray-200 border-solid shadow-md">
         {/* Add the buttons container */}
           <div className="absolute right-[12px] top-[12px] flex gap-3">
             <button className="p-2 bg-[#ECECEC] rounded-md hover:opacity-80 transition-opacity border border-[#9E9E9E]" onClick={handleEditClick}>
-                <AiFillEdit className="w-7 h-7 text-[#202020]" />
+                <AiFillEdit className="w-7 h-7 text-[#202020]"/>
             </button>
-            <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]">
-                <BsTrashFill className="w-7 h-7 text-[#BA1818]" />
+            <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]" onClick={handleDelete}>
+                <BsTrashFill className="w-7 h-7 text-[#BA1818]"/>
             </button>
-            {statusBarang !== 'Sudah diambil' && (
-                <button className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity border border-">
-                    <BsCheckLg className="w-7 h-7 text-white" />
+            {localStatus !== 'Sudah diambil' && (
+                <button className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity border border-" onClick={handleStatusUpdate}>
+                    <BsCheckLg className="w-7 h-7 text-white"/>
                 </button>
             )}
           </div>

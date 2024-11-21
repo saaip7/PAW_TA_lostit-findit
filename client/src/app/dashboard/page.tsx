@@ -132,7 +132,7 @@ export default function Dashboard() {
             Dashboard Pelapor
           </div>
           <div className="mt-4 ml-28 mr-28 mb-16">
-            <Tabs defaultValue="profile">
+            <Tabs defaultValue="barang">
               <TabsList>
                 <TabsTrigger value="profile">Profile</TabsTrigger>
                 <TabsTrigger value="barang">Barang</TabsTrigger>
