@@ -71,10 +71,31 @@ const getUserBarang = async (req, res) => {
   }
 };
 
+const editBarang = async (req, res) => {
+  try {
+    const barang = await Barang.findById(req.params.id);
+    if (!barang) {
+      return res.status(404).json({ message: "Barang not found" });
+    }
+
+    barang.namaBarang = req.body.namaBarang || barang.namaBarang;
+    barang.deskripsiBarang = req.body.deskripsiBarang || barang.deskripsiBarang;
+    barang.tempatDitemukan = req.body.tempatDitemukan || barang.tempatDitemukan;
+    barang.waktuDitemukan = req.body.waktuDitemukan || barang.waktuDitemukan;
+    barang.foto = req.body.foto || barang.foto;
+
+    const updatedBarang = await barang.save();
+    res.json(updatedBarang);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 module.exports = {
   createBarang,
   getAllBarang,
   updateBarangStatus,
   deleteBarang,
   getUserBarang,
+  editBarang,
 };

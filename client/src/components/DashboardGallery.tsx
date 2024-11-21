@@ -41,6 +41,7 @@ const DashboardGallery: React.FC<DashboardGalleryProps> = ({
             tempatDitemukan={product.tempatDitemukan}
             waktuDitemukan={new Date(product.waktuDitemukan).toLocaleString('id-ID')}
             statusBarang={product.statusBarang}
+            barangId={product._id}
           />
         ))}
       </div>

@@ -8,10 +8,7 @@ export function Footer() {
         {/* Navigation Links */}
         <div className="flex flex-wrap items-center justify-between">
           <nav className="flex gap-8 flex-wrap">
-            <a href="/login" className="hover:text-blue-100 transition-colors">
-              Masuk
-            </a>
-            <a href="/report" className="hover:text-blue-100 transition-colors">
+            <a href="/dashboard" className="hover:text-blue-100 transition-colors">
               Laporkan Barang
             </a>
             <a href="/faq" className="hover:text-blue-100 transition-colors">
