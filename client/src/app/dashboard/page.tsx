@@ -8,6 +8,7 @@ import BarangLaporan from '@/components/BarangLaporan';
 import { Footer } from "@/components/Footer";
 import CustomTextBox from "@/components/customTextBox";
 import Loading from '@/components/Loading';
+import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangModal';
 
 export default function Dashboard() {
   const [filterStatus, setFilterStatus] = useState('belum');
@@ -17,6 +18,14 @@ export default function Dashboard() {
   const handleFilterChange = (value: string) => {
     setFilterStatus(value);
     setCurrentPage(1); // Reset to page 1 when filter changes
+  };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSubmitLaporan = (formData: LaporBarangFormData) => {
+    console.log(formData);
+    // Handle form submission here
+    setIsModalOpen(false);
   };
 
   const [name, setName] = useState('');
@@ -127,9 +136,19 @@ export default function Dashboard() {
                   <div className="text-black font-medium text-lg flex items-center gap-2">
                     <span>Filter&nbsp;by:</span>
                     <FilterDropdown value={filterStatus} onValueChange={handleFilterChange} />
-                    <Button variant="default" className="px-4 py-2 rounded-md ml-2">
+                    <Button 
+                      variant="default" 
+                      className="px-4 py-2 rounded-md ml-2"
+                      onClick={() => setIsModalOpen(true)}
+                    >
                       Buat Laporan
                     </Button>
+
+                    <LaporBarangModal 
+                      isOpen={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      onSubmit={handleSubmitLaporan}
+                      />
                   </div>
                 </div>
                 <BarangLaporan 
