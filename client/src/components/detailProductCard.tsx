@@ -56,7 +56,7 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                         Sudah Diambil
                     </div>
                 ) : (
-                    <div className="gap-1 self-stretch px-2 bg-red-50 border border-red-300 border-solid rounded-[50px] text-red-700 text-sm">
+                    <div className="gap-1 self-stretch px-2 py-1 bg-red-50 border border-red-300 border-solid rounded-[50px] text-red-700 text-sm">
                         Belum Diambil
                     </div>
                 )}
