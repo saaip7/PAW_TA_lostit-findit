@@ -37,7 +37,58 @@ export default function Dashboard() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [noHP, setnoHP] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
+
+  const handleUpdateProfile = async (e: React.FormEvent) => {
+    e.preventDefault();
+  
+    if (password || confirmPassword) {
+      if (password !== confirmPassword) {
+        alert("Passwords do not match!");
+        return;
+      }
+    }
+  
+    try {
+      const token = Cookies.get('authToken');
+      const userData: any = {};
+  
+      if (name) userData.nama = name;
+      if (email) userData.email = email; 
+      if (password) userData.password = password;
+      if (noHP) userData.noHP = noHP;
+  
+      // Get the current user first to get their ID
+      const userResponse = await fetch('http://localhost:5000/api/user/me', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      const user = await userResponse.json();
+  
+      // Then update using the user's ID
+      const response = await fetch(`http://localhost:5000/api/user/${user._id}`, {
+        method: 'PATCH', 
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(userData)
+      });
+  
+      if (response.ok) {
+        alert("Profile updated successfully!");
+        setPassword('');
+        setConfirmPassword('');
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "Failed to update profile");
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert("An error occurred while updating profile");
+    }
+  };
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -94,7 +145,7 @@ export default function Dashboard() {
                 </div>
                 
                 <div className="mt-8 w-full">
-                  <form className="space-y-1">
+                  <form onSubmit={handleUpdateProfile} className="space-y-1">
                     <div className="grid grid-cols-[200px_1fr] items-center gap-8">
                       <label className="text-[#667479] text-lg">Nama</label>
                       <CustomTextBox
@@ -138,12 +189,12 @@ export default function Dashboard() {
                     </div>
 
                     <div className="grid grid-cols-[200px_1fr] items-center gap-8">
-                      <label className="text-[#667479] text-lg">No HP</label>
+                      <label className="text-[#667479] text-lg">No WhatsApp</label>
                       <CustomTextBox
-                        type="text"
+                        type="tel"
                         value={noHP}
                         onChange={(e) => setnoHP(e.target.value)}
-                        placeholder="Masukkan Nomor Telepon"
+                        placeholder="Masukkan Nomor WhatsApp"
                       />
                     </div>
 
