@@ -9,8 +9,12 @@ import { Footer } from "@/components/Footer";
 import CustomTextBox from "@/components/customTextBox";
 import Loading from '@/components/Loading';
 import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangModal';
+import useAuth from '@/hooks/useAuth';
+import { useRouter } from 'next/router';
 
 export default function Dashboard() {
+  useAuth();
+
   const [filterStatus, setFilterStatus] = useState('belum');
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
