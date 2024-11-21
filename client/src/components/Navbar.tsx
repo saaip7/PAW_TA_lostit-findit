@@ -6,10 +6,18 @@ import Image from 'next/image';
 import { Button } from '@/components/button';
 import Cookies from 'js-cookie';
 import Link from 'next/link';
+import LaporBarangModal, {LaporBarangFormData} from './laporBarangModal';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Add handler for form submission
+  const handleSubmitLaporan = (formData: LaporBarangFormData) => {
+    console.log(formData);
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     const loggedIn = Cookies.get('isLoggedIn') === 'true';
@@ -50,11 +58,13 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn ? (
               <>
-                <a href="/" rel="noopener noreferrer">
-                  <Button variant="outline" className="px-4 py-2 rounded-md">
+                <Button 
+                    variant="outline" 
+                    className="px-4 py-2 rounded-md"
+                    onClick={() => setIsModalOpen(true)} // Add onClick handler
+                >
                     <Plus />
                   </Button>
-                </a>
                 <a href="/dashboard" rel="noopener noreferrer">
                   <Button variant="outline" className="px-4 py-2 rounded-md">
                     Dashboard
@@ -132,6 +142,12 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
+      <LaporBarangModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleSubmitLaporan}
+      />
     </nav>
   );
 };

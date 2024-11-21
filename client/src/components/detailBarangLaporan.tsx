@@ -30,9 +30,11 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
             <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]">
                 <BsTrashFill className="w-7 h-7 text-[#BA1818]" />
             </button>
-            <button className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity border border-">
-                <BsCheckLg className="w-7 h-7 text-white" />
-            </button>
+            {statusBarang !== 'Sudah diambil' && (
+                <button className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity border border-">
+                    <BsCheckLg className="w-7 h-7 text-white" />
+                </button>
+            )}
         </div>
       <div className="flex overflow-hidden flex-col rounded-lg min-w-[240px] w-[404px]">
         <img loading="lazy" src={foto} alt={namaBarang} className="object-cover w-full aspect-[1.18] " />
