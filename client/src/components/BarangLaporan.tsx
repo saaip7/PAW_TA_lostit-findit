@@ -1,3 +1,4 @@
+// src/components/BarangLaporan.tsx
 "use client";
 import React, { useState, useEffect } from 'react';
 import DashboardGallery from './DashboardGallery';
@@ -14,7 +15,17 @@ export interface Product {
   statusBarang: string;
 }
 
-const BarangLaporan = () => {
+interface BarangLaporanProps {
+  filterStatus: string;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+}
+
+const BarangLaporan: React.FC<BarangLaporanProps> = ({ 
+  filterStatus, 
+  currentPage,
+  onPageChange 
+}) => {
   const [userProducts, setUserProducts] = useState<Product[]>([]);
   const router = useRouter();
 
@@ -48,9 +59,21 @@ const BarangLaporan = () => {
     fetchUserProducts();
   }, [router]);
 
+  const filteredProducts = userProducts.filter(product => {
+    if (filterStatus === 'sudah') {
+      return product.statusBarang === 'Sudah diambil';
+    } else if (filterStatus === 'belum') {
+      return product.statusBarang === 'Belum diambil';
+    }
+    return true;
+  });
+
   return (
     <div className="mt-8">
-      <DashboardGallery products={userProducts} />
+      <DashboardGallery 
+        products={filteredProducts}
+        currentPage={currentPage}
+        onPageChange={onPageChange} />
     </div>
   );
 };
