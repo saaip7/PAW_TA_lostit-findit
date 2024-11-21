@@ -1,7 +1,7 @@
 import React from "react";
 
 interface CustomTextBoxProps {
-    label: string;
+    label?: string;
     type?: string;
     value: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
