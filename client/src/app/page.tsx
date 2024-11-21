@@ -1,12 +1,24 @@
 "use client";
 import ProductCard from "@/components/ProductCard";
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Navbar from "@/components/Navbar";
 import CardGallery from "@/components/CardGallery";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
+import Loading from '@/components/Loading';
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Set loading to false after the component mounts
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <Navbar />

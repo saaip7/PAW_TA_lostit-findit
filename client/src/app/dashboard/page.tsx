@@ -1,20 +1,31 @@
 "use client";
 import Navbar from '@/components/Navbar'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/button';
 import FilterDropdown from '@/components/FilterDropdown';
 import BarangLaporan from '@/components/BarangLaporan';
 import { Footer } from "@/components/Footer";
 import CustomTextBox from "@/components/customTextBox";
+import Loading from '@/components/Loading';
+import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangModal';
 
 export default function Dashboard() {
   const [filterStatus, setFilterStatus] = useState('belum');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleFilterChange = (value: string) => {
     setFilterStatus(value);
     setCurrentPage(1); // Reset to page 1 when filter changes
+  };
+  
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleSubmitLaporan = (formData: LaporBarangFormData) => {
+    console.log(formData);
+    // Handle form submission here
+    setIsModalOpen(false);
   };
 
   const [name, setName] = useState('');
@@ -23,6 +34,15 @@ export default function Dashboard() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [address, setAddress] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Set loading to false after the component mounts
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
@@ -116,9 +136,19 @@ export default function Dashboard() {
                   <div className="text-black font-medium text-lg flex items-center gap-2">
                     <span>Filter&nbsp;by:</span>
                     <FilterDropdown value={filterStatus} onValueChange={handleFilterChange} />
-                    <Button variant="default" className="px-4 py-2 rounded-md ml-2">
+                    <Button 
+                      variant="default" 
+                      className="px-4 py-2 rounded-md ml-2"
+                      onClick={() => setIsModalOpen(true)}
+                    >
                       Buat Laporan
                     </Button>
+
+                    <LaporBarangModal 
+                      isOpen={isModalOpen}
+                      onClose={() => setIsModalOpen(false)}
+                      onSubmit={handleSubmitLaporan}
+                      />
                   </div>
                 </div>
                 <BarangLaporan 
