@@ -14,20 +14,20 @@ import {
 
 interface DashboardGalleryProps {
   products: Product[];
+  currentPage: number;
+  onPageChange: (page: number) => void;
 }
 
-const DashboardGallery: React.FC<DashboardGalleryProps> = ({ products }) => {
-  const [currentPage, setCurrentPage] = useState(1);
+const DashboardGallery: React.FC<DashboardGalleryProps> = ({ 
+  products,
+  currentPage, 
+  onPageChange
+}) => {
   const itemsPerPage = 5;
-
   const indexOfLastProduct = currentPage * itemsPerPage;
   const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
   const currentProducts = products?.slice(indexOfFirstProduct, indexOfLastProduct) || [];
   const totalPages = Math.ceil((products?.length || 0) / itemsPerPage);
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
-  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -53,7 +53,7 @@ const DashboardGallery: React.FC<DashboardGalleryProps> = ({ products }) => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage > 1) handlePageChange(currentPage - 1);
+                if (currentPage > 1) onPageChange(currentPage - 1);
               }}
             />
           </PaginationItem>
@@ -65,7 +65,7 @@ const DashboardGallery: React.FC<DashboardGalleryProps> = ({ products }) => {
                 isActive={currentPage === index + 1}
                 onClick={(e) => {
                   e.preventDefault();
-                  handlePageChange(index + 1);
+                  onPageChange(index + 1);
                 }}
               >
                 {index + 1}
@@ -78,7 +78,7 @@ const DashboardGallery: React.FC<DashboardGalleryProps> = ({ products }) => {
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                if (currentPage < totalPages) onPageChange(currentPage + 1);
               }}
             />
           </PaginationItem>
