@@ -10,7 +10,7 @@ import CustomTextBox from "@/components/customTextBox";
 import Loading from '@/components/Loading';
 import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangModal';
 import useAuth from '@/hooks/useAuth';
-import { useRouter } from 'next/router';
+import Cookies from 'js-cookie';
 
 export default function Dashboard() {
   useAuth();
@@ -36,12 +36,36 @@ export default function Dashboard() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [address, setAddress] = useState('');
+  const [noHP, setnoHP] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    // Set loading to false after the component mounts
-    setIsLoading(false);
+    const fetchUserData = async () => {
+      try {
+        const token = Cookies.get('authToken');
+        const response = await fetch('http://localhost:5000/api/user/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+  
+        if (response.ok) {
+          const userData = await response.json();
+          // Populate the form fields with user data
+          setName(userData.nama);
+          setEmail(userData.email);
+          setnoHP(userData.noHP); // If address exists in your user model
+        } else {
+          console.error('Failed to fetch user data');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+  
+    fetchUserData();
   }, []);
 
   if (isLoading) {
@@ -97,7 +121,7 @@ export default function Dashboard() {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Masukkan password baru"
+                        placeholder="********"
                         autoComplete="off"
                       />
                     </div>
@@ -108,18 +132,18 @@ export default function Dashboard() {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        placeholder="Konfirmasi password baru"
+                        placeholder="********"
                         autoComplete="off"
                       />
                     </div>
 
-                    <div className="grid grid-cols-[200px_1fr] items-start gap-8">
-                      <label className="text-[#667479] text-lg pt-2">Alamat</label>
-                      <textarea
-                        value={address}
-                        onChange={(e) => setAddress(e.target.value)}
-                        placeholder="Masukkan alamat"
-                        className="shadow appearance-none border rounded-xl w-full py-2 px-3 text-black leading-tight border-gray-300 focus:outline-none focus:ring-2 focus:ring-lightBlue-500 min-h-[100px] resize-none"
+                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
+                      <label className="text-[#667479] text-lg">No HP</label>
+                      <CustomTextBox
+                        type="text"
+                        value={noHP}
+                        onChange={(e) => setnoHP(e.target.value)}
+                        placeholder="Masukkan Nomor Telepon"
                       />
                     </div>
 
