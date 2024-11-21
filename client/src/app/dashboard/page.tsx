@@ -1,16 +1,18 @@
 "use client";
 import Navbar from '@/components/Navbar'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from '@/components/button';
 import FilterDropdown from '@/components/FilterDropdown';
 import BarangLaporan from '@/components/BarangLaporan';
 import { Footer } from "@/components/Footer";
 import CustomTextBox from "@/components/customTextBox";
+import Loading from '@/components/Loading';
 
 export default function Dashboard() {
   const [filterStatus, setFilterStatus] = useState('belum');
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleFilterChange = (value: string) => {
     setFilterStatus(value);
@@ -23,6 +25,15 @@ export default function Dashboard() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [address, setAddress] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    // Set loading to false after the component mounts
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <>
