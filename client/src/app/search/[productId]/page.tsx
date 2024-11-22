@@ -5,7 +5,6 @@ import { DetailProductCard } from "@/components/detailProductCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
-import axios from "axios";
 import React from "react";
 
 interface Product {

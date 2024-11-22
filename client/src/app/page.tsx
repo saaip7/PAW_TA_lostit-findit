@@ -73,7 +73,7 @@ export default function Home() {
               Coba cari di halaman barang yang sudah ditemukan, siapa tahu tertukar dengan orang lain.
               </div>
               <div className="flex flex-row items-center mt-4">
-                <a href="/" target="_blank" rel="noopener noreferrer">
+                <a href="/found" rel="noopener noreferrer">
                   <Button variant="default" className="px-4 py-2 rounded-md bg-white border text-darkBlue1 hover:bg-transparent hover:border-darkBlue1">
                     Barang Ditemukan
                   </Button>

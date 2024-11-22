@@ -5,6 +5,7 @@ import SearchCardGallery from "@/components/SearchCardGallery";
 import { Footer } from "@/components/Footer";
 import Loading from "@/components/Loading";
 import SortDropdown from "@/components/FilterSortDropdown";
+import FoundCardGallery from "@/components/FoundCardGallery";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,14 +31,13 @@ export default function Home() {
           <div className="flex flex-row items-center justify-between px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem]">
             <div className="flex flex-col items-start">
               <div className="flex flex-row items-center gap-2">
-                <h2 className="font-bold text-2xl">Hasil pencarian</h2>
-                <p className="font-bold text-2xl">"{query}"</p>
+                <h2 className="font-bold text-2xl">Barang Sudah Ditemukan</h2>
               </div>
-              <div className="flex flex-row gap-1 text-darkBlue1 font-medium">
-                <p className="text-lg">Menampilkan</p>
-                <p className="text-lg">{totalItems}</p>
-                <p className="text-lg">barang</p>
-              </div>
+                <div className="flex flex-row gap-1 text-darkBlue1 font-medium">
+                    <p className="text-lg">Menampilkan</p>
+                    <p className="text-lg">{totalItems}</p>
+                    <p className="text-lg">barang</p>
+                </div>
             </div>
             <div className="text-black font-medium text-lg flex items-center gap-2">
               <span>Urutkan</span>
@@ -45,7 +45,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8">
-            <SearchCardGallery setQuery={setQuery} setTotalItems={setTotalItems} sortOrder={sortOrder}/>
+            <FoundCardGallery setTotalItems={setTotalItems} sortOrder={sortOrder} />
           </div>
         </div>
       </div>

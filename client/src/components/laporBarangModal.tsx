@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'react-feather';
 import { Button } from '@/components/button';
 import CustomTextBox from '@/components/customTextBox';
-import Loading from '@/components/loading';
 import Cookies from 'js-cookie';
 
 interface LaporBarangModalProps {
