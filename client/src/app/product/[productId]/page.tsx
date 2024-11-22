@@ -103,7 +103,9 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      <Footer/>
+      <div className="mt-40">
+        <Footer />
+      </div>
     </div>
     </>
   );
