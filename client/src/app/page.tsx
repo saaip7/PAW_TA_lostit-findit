@@ -50,7 +50,7 @@ export default function Home() {
                     FAQ
                   </Button>
                 </a>
-                <a href="/" target="_blank" rel="noopener noreferrer">
+                <a href="/dashboard" rel="noopener noreferrer">
                   <Button variant="default" className="px-4 py-2 rounded-md ml-4 bg-white border text-darkBlue1 hover:bg-transparent hover:text-white">
                     Nemu Barang? 
                   </Button>
