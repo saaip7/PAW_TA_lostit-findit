@@ -34,7 +34,7 @@ export default function Home() {
               </div>
               <div className="text-white z-10 md:text-right md:mr-10 md:mb-14 items-center md:mt-2 ml-10 md:ml-44 md:place-items-end">
                 <div className="font-black lg:text-6xl text-4xl md:text-2xl">
-                  Lost It? Find It?
+                  Lost It? Find It!
                 </div>
                 <div className="font-bold text-lg md:text-xl lg:text-2xl">
                   Temukan Barang Hilangmu
