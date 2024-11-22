@@ -32,7 +32,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             minute: '2-digit',
             timeZone: 'Asia/Jakarta',
         }).format(new Date(product.waktuDitemukan));
-        setFormattedDate(date + " WIB");
+        setFormattedDate(date);
     }, [product.waktuDitemukan]);
 
     const handleButtonClick = () => {
