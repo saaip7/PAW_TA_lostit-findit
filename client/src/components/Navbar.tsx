@@ -1,17 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { Search, Menu, X, Plus } from 'lucide-react';
-import Image from 'next/image';
-import { Button } from '@/components/button';
-import Cookies from 'js-cookie';
-import Link from 'next/link';
-import LaporBarangModal, {LaporBarangFormData} from './laporBarangModal';
+import React, { useState, useEffect } from "react";
+import { Search, Menu, X, Plus } from "lucide-react";
+import Image from "next/image";
+import { Button } from "@/components/button";
+import Cookies from "js-cookie";
+import Link from "next/link";
+import LaporBarangModal, { LaporBarangFormData } from "./laporBarangModal";
+import { useRouter } from "next/navigation"; // For Next.js App Router
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const router = useRouter();
 
   // Add handler for form submission
   const handleSubmitLaporan = (formData: LaporBarangFormData) => {
@@ -20,37 +23,55 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    const loggedIn = Cookies.get('isLoggedIn') === 'true';
+    const loggedIn = Cookies.get("isLoggedIn") === "true";
     setIsLoggedIn(loggedIn);
   }, []);
 
   const handleLogout = () => {
-    Cookies.remove('isLoggedIn');
+    Cookies.remove("isLoggedIn");
     setIsLoggedIn(false);
   };
 
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/search?query=${encodeURIComponent(searchQuery)}`);
+    }
+  };
+
   return (
-    <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[8rem] shadow-md border-b-2 border-gray-200">
+    <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem] shadow-md border-b-2 border-gray-200">
       <div className="mx-auto">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" rel="noopener noreferrer">
-          <div className={`hover:scale-110 transition-transform duration-300 will-change-transform`}>
-            <Image src="/logo.svg" alt="Logo" width={62} height={62} />
-          </div>
+            <div
+              className={`hover:scale-110 transition-transform duration-300 will-change-transform`}
+            >
+              <Image src="/logo.svg" alt="Logo" width={62} height={62} />
+            </div>
           </Link>
 
           {/* Search Bar - Hidden on mobile */}
           <div className="hidden md:block flex-1 max-w-2xl mx-8">
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-darkBlue1" />
-              </div>
-              <input
-                type="text"
-                placeholder="Cari barangmu..."
-                className="block w-full pl-10 pr-3 py-2 border border-darkBlue1 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-darkBlue1 focus:border-transparent text-darkBlue1 placeholder:text-darkBlue1"
-              />
+              <form
+                onSubmit={handleSearch}
+                className="hidden md:block flex-1 max-w-2xl mx-8"
+              >
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-darkBlue1" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Cari barangmu..."
+                    className="block w-full pl-10 pr-3 py-2 border border-darkBlue1 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-darkBlue1 focus:border-transparent text-darkBlue1 placeholder:text-darkBlue1"
+                  />
+                </div>
+              </form>
             </div>
           </div>
 
@@ -58,13 +79,13 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
             {isLoggedIn ? (
               <>
-                <Button 
-                    variant="outline" 
-                    className="px-4 py-2 rounded-md"
-                    onClick={() => setIsModalOpen(true)} // Add onClick handler
+                <Button
+                  variant="outline"
+                  className="px-4 py-2 rounded-md"
+                  onClick={() => setIsModalOpen(true)} // Add onClick handler
                 >
-                    <Plus />
-                  </Button>
+                  <Plus />
+                </Button>
                 <a href="/dashboard" rel="noopener noreferrer">
                   <Button variant="outline" className="px-4 py-2 rounded-md">
                     Dashboard
@@ -137,13 +158,12 @@ const Navbar = () => {
                   Masuk Sekarang
                 </button>
               </a>
-              
             )}
           </div>
         </div>
       )}
 
-      <LaporBarangModal 
+      <LaporBarangModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleSubmitLaporan}

@@ -61,11 +61,11 @@ const Login: React.FC = () => {
     return (
         <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 p-4 mx-auto min-h-screen bg-white w-[100%]">
             <div className="h-1/2 flex flex-col">
-            <Link href="/" className="self-start">
+            <div className="self-start">
                 <div className="mb-16">
                     <Logo />
                 </div>
-            </Link>
+            </div>
             <div className="max-w-sm mx-auto flex flex-col space-y-4">
                 <div className="text-black font-bold text-center text-4xl">
                     Masuk Sekarang

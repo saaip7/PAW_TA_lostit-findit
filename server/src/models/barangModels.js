@@ -47,4 +47,9 @@ const barangSchema = new mongoose.Schema(
     }
 );
 
-module.exports = mongoose.model('Barang', barangSchema);
+// Menambahkan indeks teks pada field yang ingin dicari
+barangSchema.index({ namaBarang: 'text', deskripsiBarang: 'text' });
+
+const Barang = mongoose.model('Barang', barangSchema);
+
+module.exports = Barang;

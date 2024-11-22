@@ -2,7 +2,14 @@ const Barang = require("../models/barangModels");
 const User = require("../models/userModels");
 
 const createBarang = async (req, res) => {
-  const { foto, namaBarang, deskripsiBarang, tempatDitemukan, waktuDitemukan, userId } = req.body;
+  const {
+    foto,
+    namaBarang,
+    deskripsiBarang,
+    tempatDitemukan,
+    waktuDitemukan,
+    userId,
+  } = req.body;
 
   try {
     const user = await User.findById(userId);
@@ -19,11 +26,11 @@ const createBarang = async (req, res) => {
       waktuDitemukan,
       namaPenemu: user.nama,
       kontak: user.noHP,
-      statusBarang: 'Belum diambil',
+      statusBarang: "Belum diambil",
     });
 
     await newBarang.save();
-    res.status(201).json({ message: "Barang added successfully"});
+    res.status(201).json({ message: "Barang added successfully" });
   } catch (err) {
     res.status(400).json({ message: err.message });
   }
@@ -91,6 +98,26 @@ const editBarang = async (req, res) => {
   }
 };
 
+const searchBarang = async (req, res) => {
+  const query = req.query.query || "";
+  const sortOrder = req.query.sort || "asc"; // Default to ascending order
+
+  try {
+    // MongoDB search query
+    const results = await Barang.find({
+      $text: { $search: query }, // Ensure you have a text index in MongoDB
+    })
+    .sort({ waktuDitemukan: sortOrder === "asc" ? 1 : -1 }) // Sort by namaBarang field
+    .limit(10);
+
+    res.json(results);
+  } catch (error) {
+    console.error("Error during search:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
 module.exports = {
   createBarang,
   getAllBarang,
@@ -98,4 +125,5 @@ module.exports = {
   deleteBarang,
   getUserBarang,
   editBarang,
+  searchBarang
 };
