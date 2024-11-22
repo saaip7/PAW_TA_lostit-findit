@@ -13,7 +13,6 @@ const uploadImage = async (req, res) => {
       folder: 'lost-found',
       resource_type: 'auto',
       transformation: [
-        { width: 404, height: 342, crop: "fill" }, // 404 width and aspect ratio 1.18 gives us 342 height
         { quality: "auto" }, // Optimize quality
         { fetch_format: "auto" } // Automatically choose best format
       ]
@@ -23,7 +22,6 @@ const uploadImage = async (req, res) => {
     const imageUrl = cloudinary.url(result.public_id, {
       secure: true,
       transformation: [
-        { width: 404, height: 342, crop: "fill" },
         { quality: "auto" },
         { fetch_format: "auto" }
       ]
