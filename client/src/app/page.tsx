@@ -34,7 +34,7 @@ export default function Home() {
               </div>
               <div className="text-white z-10 md:text-right md:mr-10 md:mb-14 items-center md:mt-2 ml-10 md:ml-44 md:place-items-end">
                 <div className="font-black lg:text-6xl text-4xl md:text-2xl">
-                  Lost It? Find It?
+                  Lost It? Find It!
                 </div>
                 <div className="font-bold text-lg md:text-xl lg:text-2xl">
                   Temukan Barang Hilangmu
@@ -50,7 +50,7 @@ export default function Home() {
                     FAQ
                   </Button>
                 </a>
-                <a href="/" target="_blank" rel="noopener noreferrer">
+                <a href="/dashboard" rel="noopener noreferrer">
                   <Button variant="default" className="px-4 py-2 rounded-md ml-4 bg-white border text-darkBlue1 hover:bg-transparent hover:text-white">
                     Nemu Barang? 
                   </Button>

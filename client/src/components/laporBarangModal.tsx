@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X } from 'react-feather';
 import { Button } from '@/components/button';
 import CustomTextBox from '@/components/customTextBox';
+import Loading from '@/components/loading';
+import Cookies from 'js-cookie';
 
 interface LaporBarangModalProps {
   isOpen: boolean;
@@ -26,16 +28,124 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
     foto: null
   });
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState<string>('');
+
+  useEffect(() => {
+    const fetchCurrentUser = async () => {
+      try {
+        const token = Cookies.get('authToken');
+        const response = await fetch('http://localhost:5000/api/user/me', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+
+        const userData = await response.json();
+        setUserId(userData._id);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        alert('Error loading user data. Please try again.');
+      }
+    };
+
+    if (isOpen) {
+      fetchCurrentUser();
+    }
+  }, [isOpen]);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('Image size should be less than 5MB');
+        return;
+      }
       setFormData({ ...formData, foto: file });
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result as string);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+  
+    try {
+      if (!formData.namaBarang || !formData.tempatDitemukan || !formData.waktuDitemukan || !formData.foto) {
+        throw new Error('Please fill in all required fields');
+      }
+  
+      // Create a proper date object with today's date and the selected time
+      const today = new Date();
+      const [hours, minutes] = formData.waktuDitemukan.split(':');
+      const waktuDitemukan = new Date(
+        today.getFullYear(),
+        today.getMonth(),
+        today.getDate(),
+        parseInt(hours),
+        parseInt(minutes)
+      );
+  
+      // Upload image to Cloudinary
+      const imageFormData = new FormData();
+      imageFormData.append('file', formData.foto);
+  
+      const uploadResponse = await fetch('http://localhost:5000/api/upload', {
+        method: 'POST',
+        body: imageFormData,
+      });
+  
+      if (!uploadResponse.ok) {
+        throw new Error('Failed to upload image');
+      }
+  
+      const uploadResult = await uploadResponse.json();
+  
+      if (!uploadResult.imageUrl) {
+        throw new Error('No image URL received from server');
+      }
+  
+      // Create barang data with the Cloudinary URL
+      const barangData = {
+        namaBarang: formData.namaBarang,
+        tempatDitemukan: formData.tempatDitemukan,
+        waktuDitemukan: waktuDitemukan.toISOString(),
+        deskripsiBarang: formData.deskripsiBarang,
+        foto: uploadResult.imageUrl,
+        userId
+      };
+  
+      const submitResponse = await fetch('http://localhost:5000/api/barang', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(barangData),
+      });
+  
+      if (!submitResponse.ok) {
+        const errorData = await submitResponse.json();
+        throw new Error(errorData.message || 'Failed to submit form');
+      }
+  
+      onSubmit(formData);
+      onClose();
+      alert('Barang reported successfully!');
+      window.location.reload(); // Add this line to refresh the page
+  
+    } catch (error) {
+      console.error('Error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,7 +165,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
           Harap isikan data sesuai dengan keadaan aslinya
         </p>
   
-        <form className="space-y-2">
+        <form className="space-y-2" onSubmit={handleSubmit}>
           <div className="grid grid-cols-[200px_1fr] items-center gap-4">
             <label className="text-[#667479] text-lg">Nama Barang*</label>
             <CustomTextBox
@@ -162,11 +272,11 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
           </div>
 
           <div className="flex justify-center gap-6 mt-6">
-            <Button variant="outline" onClick={onClose} className="px-8 py-2 w-full">
+            <Button variant="outline" type="button" onClick={onClose} className="px-8 py-2 w-full">
               Cancel
             </Button>
-            <Button variant="default" onClick={() => onSubmit(formData)} className="px-8 py-2 w-full">
-              Confirm
+            <Button variant="default" type="submit" className="px-8 py-2 w-full" disabled={loading}>
+              {loading ? 'Submitting...' : 'Confirm'}
             </Button>
           </div>
         </form>
