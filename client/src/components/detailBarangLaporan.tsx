@@ -62,9 +62,37 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
     };
 
     const handleDelete = async () => {
-      // Show confirmation dialog first
       if (window.confirm('Are you sure you want to delete this item?')) {
         try {
+          // Check if the image URL is from Cloudinary
+          if (foto.includes('cloudinary.com')) {
+            // Extract public_id from Cloudinary URL
+            const urlParts = foto.split('/');
+            const folderIndex = urlParts.indexOf('lost-found');
+            
+            if (folderIndex !== -1) {
+              const publicId = urlParts.slice(folderIndex).join('/').split('.')[0];
+          
+              // Try to delete from Cloudinary first
+              try {
+                const cloudinaryResponse = await fetch('http://localhost:5000/api/upload', {
+                  method: 'DELETE',
+                  headers: {
+                    'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ public_id: publicId })
+                });
+          
+                if (!cloudinaryResponse.ok) {
+                  console.warn('Failed to delete image from Cloudinary');
+                }
+              } catch (cloudinaryError) {
+                console.warn('Error deleting from Cloudinary:', cloudinaryError);
+              }
+            }
+          }
+    
+          // Delete the barang from MongoDB regardless of image source
           const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
             method: 'DELETE',
             headers: {
@@ -72,16 +100,21 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
             }
           });
     
-          if (response.ok) {
-            alert('Item deleted successfully');
-            window.location.reload(); // Refresh the page to update the list
-          } else {
-            console.error('Failed to delete item');
-            alert('Failed to delete item');
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to delete item from database');
           }
+    
+          alert('Item deleted successfully');
+          window.location.reload();
+    
         } catch (error) {
-          console.error('Error deleting item:', error);
-          alert('Error deleting item');
+          if (error instanceof Error) {
+            console.warn('Delete operation failed:', error.message);
+          } else {
+            console.warn('Delete operation failed with unknown error');
+          }
+          alert('Failed to delete item. Please try again.');
         }
       }
     };

@@ -51,6 +51,7 @@ app.use("/api/user", require("./src/routes/userRoutes"));
 app.use("/api/barang", require("./src/routes/barangRoutes"));
 // Add the upload route
 app.post('/api/upload', uploadController.uploadImage);
+app.delete('/api/upload', uploadController.deleteImage);
 
 // APP START
 app.listen(port, () => console.log(`Server running on port ${port}`));
