@@ -9,6 +9,7 @@ interface DetailProps {
   tempatDitemukan: string;
   waktuDitemukan: string;
   statusBarang: string;
+  kontak : string;
 }
   
 export const DetailProductCard: React.FC<DetailProps> = ({
@@ -17,8 +18,17 @@ export const DetailProductCard: React.FC<DetailProps> = ({
   tempatDitemukan,
   waktuDitemukan,
   statusBarang,
-  deskripsiBarang
+  deskripsiBarang,
+  kontak
 }) => {
+
+  const formatWhatsAppLink = (phoneNumber: string) => {
+    // Remove any non-digit characters
+    const cleanNumber = phoneNumber.replace(/\D/g, '');
+    // Add country code if not present
+    const formattedNumber = cleanNumber.startsWith('62') ? cleanNumber : `62${cleanNumber.substring(1)}`;
+    return `https://wa.me/${formattedNumber}`;
+  };
   return (
     <article className="flex flex-wrap gap-9 items-start px-5 py-6 bg-white rounded-2xl border border-gray-200 border-solid shadow-md mx-[4rem] sm:mx-[6rem] md:mx-[8rem]">
       <div className="flex overflow-hidden flex-col rounded-lg min-w-[240px] w-[404px]">
@@ -71,7 +81,7 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                 </div>
             </div>
             <div className='py-2'>
-            <a href="/" target="_blank" rel="noopener noreferrer">
+            <a href={formatWhatsAppLink(kontak)} target="_blank" rel="noopener noreferrer">
               <Button variant="default" className="px-4 py-2 rounded-md">
                 <div className='flex flex-row items-start align-center gap-1'>
                   <FaWhatsapp size={20}/>

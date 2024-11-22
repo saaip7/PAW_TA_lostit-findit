@@ -63,6 +63,7 @@ export default async function ProductDetailPage({
           waktuDitemukan={new Date(product.waktuDitemukan).toLocaleString('id-ID')}
           statusBarang={product.statusBarang}
           deskripsiBarang={product.deskripsiBarang}
+          kontak={product.kontak}
         />
       </div>
       
