@@ -27,6 +27,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
     foto: null
   });
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (barangId) {
@@ -50,12 +51,81 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      if (file.size > 5 * 1024 * 1024) { // 5MB limit
+        alert('Image size should be less than 5MB');
+        return;
+      }
       setFormData({ ...formData, foto: file });
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreviewUrl(reader.result as string);
       };
       reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    
+    try {
+      if (!formData.namaBarang || !formData.tempatDitemukan || !formData.waktuDitemukan) {
+        throw new Error('Please fill in all required fields');
+      }
+  
+      let updatedData: any = {
+        namaBarang: formData.namaBarang,
+        tempatDitemukan: formData.tempatDitemukan,
+        waktuDitemukan: formData.waktuDitemukan,
+        deskripsiBarang: formData.deskripsiBarang
+      };
+  
+      // Only handle image upload if a new image was selected
+      if (formData.foto) {
+        const imageFormData = new FormData();
+        imageFormData.append('file', formData.foto);
+  
+        const uploadResponse = await fetch('http://localhost:5000/api/upload', {
+          method: 'POST', 
+          body: imageFormData,
+        });
+  
+        if (!uploadResponse.ok) {
+          throw new Error('Failed to upload image');
+        }
+  
+        const uploadResult = await uploadResponse.json();
+  
+        if (!uploadResult.imageUrl) {
+          throw new Error('No image URL received from server');
+        }
+  
+        updatedData.foto = uploadResult.imageUrl;
+      }
+  
+      const submitResponse = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedData)
+      });
+  
+      if (!submitResponse.ok) {
+        const errorData = await submitResponse.json();
+        throw new Error(errorData.message || 'Failed to update barang');
+      }
+  
+      onSubmit(formData);
+      onClose();
+      alert('Barang updated successfully!');
+      window.location.reload();
+  
+    } catch (error) {
+      console.error('Error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to update barang. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,7 +145,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
           Harap isikan data sesuai dengan keadaan aslinya
         </p>
   
-        <form className="space-y-2">
+        <form className="space-y-2" onSubmit={handleSubmit}>
           <div className="grid grid-cols-[200px_1fr] items-center gap-4">
             <label className="text-[#667479] text-lg">Nama Barang*</label>
             <CustomTextBox
@@ -182,11 +252,11 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
           </div>
 
           <div className="flex justify-center gap-6 mt-6">
-            <Button variant="outline" onClick={onClose} className="px-8 py-2 w-full">
+            <Button variant="outline" type="button" onClick={onClose} className="px-8 py-2 w-full">
               Cancel
             </Button>
-            <Button variant="default" onClick={() => onSubmit(formData)} className="px-8 py-2 w-full">
-              Confirm
+            <Button variant="default" type="submit" className="px-8 py-2 w-full"  disabled={loading}>
+              {loading ? 'Submitting...' : 'Confirm'}
             </Button>
           </div>
         </form>
