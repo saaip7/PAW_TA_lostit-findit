@@ -100,15 +100,21 @@ const editBarang = async (req, res) => {
 
 const searchBarang = async (req, res) => {
   const query = req.query.query || "";
-  const sortOrder = req.query.sort || "asc"; // Default to ascending order
+  const sortOrder = req.query.sort || "asc";
 
   try {
-    // MongoDB search query
-    const results = await Barang.find({
-      $text: { $search: query }, // Ensure you have a text index in MongoDB
-    })
-    .sort({ waktuDitemukan: sortOrder === "asc" ? 1 : -1 }) // Sort by namaBarang field
-    .limit(10);
+    let searchQuery;
+    if (query.includes(" ")) {
+      // For multi-word search, use phrase matching
+      searchQuery = { $text: { $search: `"${query}"` } };
+    } else {
+      // For single word search, use regular text search
+      searchQuery = { $text: { $search: query } };
+    }
+
+    const results = await Barang.find(searchQuery)
+      .sort({ waktuDitemukan: sortOrder === "asc" ? 1 : -1 })
+      .limit(10);
 
     res.json(results);
   } catch (error) {

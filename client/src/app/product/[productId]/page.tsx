@@ -5,7 +5,6 @@ import { DetailProductCard } from "@/components/detailProductCard";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
-import axios from "axios";
 import React from "react";
 
 interface Product {
@@ -64,6 +63,7 @@ export default async function ProductDetailPage({
           waktuDitemukan={new Date(product.waktuDitemukan).toLocaleString('id-ID')}
           statusBarang={product.statusBarang}
           deskripsiBarang={product.deskripsiBarang}
+          kontak={product.kontak}
         />
       </div>
       
@@ -104,7 +104,9 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      <Footer/>
+      <div className="mt-40">
+        <Footer />
+      </div>
     </div>
     </>
   );
