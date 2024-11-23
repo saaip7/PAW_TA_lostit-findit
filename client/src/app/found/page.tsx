@@ -49,7 +49,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="mt-40">
+      <div className="pt-40 bg-whiteBg">
         <Footer />
       </div>
     </>
