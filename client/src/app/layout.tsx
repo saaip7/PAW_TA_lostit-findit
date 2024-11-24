@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import {Inter} from "next/font/google"
+import { Bounce, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 
 const inter = Inter({
@@ -23,6 +25,19 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className}`}>
       <main>
+      <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+      />
         {children}
       </main>
       </body>

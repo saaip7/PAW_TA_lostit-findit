@@ -9,6 +9,7 @@ import Logo from "@/components/logo";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import { ApiResponse } from "../types/user";
+import { toast } from "react-toastify";
 
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -63,13 +64,13 @@ const Login: React.FC = () => {
                             router.push('/');
                         }
                     }
-                    alert('Login successful!');
+                    toast.success('Login successful!', {closeOnClick: true});
                 } else {
-                    alert(data.message || 'Login failed');
+                    toast.error(data.message || 'Login failed!', {closeOnClick: true});
                 }
             } catch (error) {
                 console.error("Error:", error);
-                alert("An error occurred. Please try again.");
+                toast.error('An error occurred. Please try again', {closeOnClick: true});
             }
         }
     };

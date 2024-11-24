@@ -29,6 +29,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import { toast } from "react-toastify";
 
 interface Barang {
   _id: string;
@@ -117,10 +118,10 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
   
       // Only refresh data if update was successful
       await fetchBarang();
-      alert(`Status berhasil diubah menjadi ${newStatus}`);
+      toast.success(`Status berhasil diubah menjadi ${newStatus}`, {closeOnClick: true});
     } catch (error) {
       console.error('Error updating status:', error);
-      alert('Gagal mengubah status barang');
+      toast.error("Gagal mengubah status barang", {closeOnClick: true});
     }
   };
   

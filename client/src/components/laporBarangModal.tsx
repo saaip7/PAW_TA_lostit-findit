@@ -3,6 +3,7 @@ import { X } from 'react-feather';
 import { Button } from '@/components/button';
 import CustomTextBox from '@/components/customTextBox';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 interface LaporBarangModalProps {
   isOpen: boolean;
@@ -48,7 +49,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
         setUserId(userData._id);
       } catch (error) {
         console.error('Error fetching user data:', error);
-        alert('Error loading user data. Please try again.');
+        toast.error('Error loading user data. Please try again.', {closeOnClick: true});
       }
     };
 
@@ -61,7 +62,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        alert('Image size should be less than 5MB');
+        toast.warn('Image size should be less than 5MB', {closeOnClick: true});
         return;
       }
       setFormData({ ...formData, foto: file });
@@ -137,12 +138,12 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
   
       onSubmit(formData);
       onClose();
-      alert('Barang reported successfully!');
+      toast.success('Barang reported successfully!', {closeOnClick: true});
       window.location.reload(); // Add this line to refresh the page
   
     } catch (error) {
       console.error('Error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to submit form. Please try again.');
+      toast.error(error instanceof Error ? error.message : 'Failed to submit form. Please try again.', {closeOnClick: true});
     } finally {
       setLoading(false);
     }
@@ -247,7 +248,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
                       };
                       reader.readAsDataURL(file);
                     } else {
-                      alert('Please upload a PNG, JPG or JPEG file');
+                      toast.warn('Please upload a PNG, JPG or JPEG file', {closeOnClick: true});
                     }
                   }
                 }}

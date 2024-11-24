@@ -13,6 +13,7 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
+import { toast } from 'react-toastify';
 
 interface DetailProps {
   foto: string;
@@ -60,7 +61,7 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
 
         if (response.ok) {
           setLocalStatus('Sudah diambil');
-          alert('Status updated successfully');
+          toast.success('Status updated successfully', {closeOnClick: true});
           // You might want to trigger a refresh of the parent component
           window.location.reload();
         } else {
@@ -112,8 +113,7 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
           const errorData = await response.json();
           throw new Error(errorData.message || 'Failed to delete item from database');
         }
-    
-        alert('Item deleted successfully');
+        toast.success('Item deleted successfully', {closeOnClick: true});
         window.location.reload();
     
       } catch (error) {
@@ -122,7 +122,7 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
         } else {
           console.warn('Delete operation failed with unknown error');
         }
-        alert('Failed to delete item. Please try again.');
+        toast.error('Failed to delete item. Please try again.', {closeOnClick: true});
       }
     };
 

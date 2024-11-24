@@ -5,6 +5,7 @@ import { Button } from '@/components/pagination/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import Cookies from 'js-cookie'
+import { toast } from 'react-toastify'
 
 interface AdminAccount {
   name: string
@@ -40,7 +41,7 @@ export default function AdminAccountForm() {
       }
     } catch (error) {
       console.error('Error fetching user data:', error)
-      alert('Failed to load account information')
+      toast.error('Failed to load account information', {closeOnClick: true});
     }
   }
 
@@ -49,7 +50,7 @@ export default function AdminAccountForm() {
     
     if (password || confirmPassword) {
       if (password !== confirmPassword) {
-        alert('Passwords do not match!')
+        toast.warn('Passwords do not match!', {closeOnClick: true});
         return
       }
     }
@@ -82,16 +83,16 @@ export default function AdminAccountForm() {
       })
 
       if (response.ok) {
-        alert('Profile updated successfully!')
+        toast.success('Profile updated successfully!', {closeOnClick: true});
         setPassword('')
         setConfirmPassword('')
       } else {
         const errorData = await response.json()
-        alert(errorData.message || 'Failed to update profile')
+        toast.error(errorData.message || 'Failed to update profile', {closeOnClick: true});
       }
     } catch (error) {
       console.error('Error updating profile:', error)
-      alert('An error occurred while updating profile')
+      toast.error('An error occurred while updating profile', {closeOnClick: true});
     }
   }
 
