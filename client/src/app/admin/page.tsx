@@ -1,7 +1,10 @@
+"use client";
 import BarangTable from "@/components/admin/LostProductTable";
 import { Search } from "lucide-react";
+import { useAdminProtected } from "@/hooks/useAdminProtected";
 
 export default function AdminDashboard() {
+  useAdminProtected();
   return (
     <div className="p-6">
       <div className="flex flex-row mb-4 justify-between">

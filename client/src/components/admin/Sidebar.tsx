@@ -1,9 +1,9 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { Box, List, Package, User } from 'lucide-react'
-
+import Cookies from 'js-cookie'
 
 const menuItems = [
   { name: 'Barang Hilang', href: '/admin', icon: Package },
@@ -13,6 +13,16 @@ const menuItems = [
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const router = useRouter()
+
+  const handleSignOut = () => {
+    // Remove auth cookies
+    Cookies.remove('authToken')
+    Cookies.remove('isLoggedIn')
+    
+    // Redirect to login page
+    router.push('/login')
+  }
 
   return (
     <div className="flex flex-col w-64 bg-darkBlue1 border-r shadow-right">
@@ -37,7 +47,7 @@ export default function Sidebar() {
         </ul>
       </nav>
       <button
-        
+        onClick={handleSignOut}
         className="flex items-center px-6 py-3 text-white hover:bg-darkBlue2"
       >
         <User className="w-5 h-5 mr-3" />

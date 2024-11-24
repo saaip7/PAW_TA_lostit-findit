@@ -1,10 +1,13 @@
+"use client";
 import Sidebar from '@/components/admin/Sidebar'
+import { useAdminProtected } from '@/hooks/useAdminProtected';
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  useAdminProtected();
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
