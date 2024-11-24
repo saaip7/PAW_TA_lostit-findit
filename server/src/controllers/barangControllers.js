@@ -104,12 +104,14 @@ const searchBarang = async (req, res) => {
 
   try {
     let searchQuery;
+    
     if (query.includes(" ")) {
-      // For multi-word search, use phrase matching
-      searchQuery = { $text: { $search: `"${query}"` } };
+      // Jika query memiliki spasi, menggunakan regex untuk multi kata
+      const words = query.split(" ").map((word) => `(?=.*${word})`).join("");
+      searchQuery = { namaBarang: { $regex: new RegExp(words, "i") } };
     } else {
-      // For single word search, use regular text search
-      searchQuery = { $text: { $search: query } };
+      // Jika hanya satu kata, menggunakan regex biasa
+      searchQuery = { namaBarang: { $regex: query, $options: "i" } };
     }
 
     const results = await Barang.find(searchQuery)
@@ -122,6 +124,7 @@ const searchBarang = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 
 module.exports = {

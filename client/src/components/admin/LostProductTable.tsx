@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-toastify";
 
+
 interface Barang {
   _id: string;
   foto: string;
@@ -65,9 +66,21 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
   }, [searchQuery, urlQuery]); // Re-run when either changes
 
   const fetchBarang = async () => {
-    const response = await axios.get("http://localhost:5000/api/barang");
-    const data = response.data;
-    setBarangList(data);
+    try {
+      let url = "http://localhost:5000/api/barang";
+
+      // Jika ada searchQuery, tambahkan query param ke URL
+      if (searchQuery) {
+        console.log(searchQuery);
+        url += `/search?query=${encodeURIComponent(searchQuery)}`;
+      }
+
+      const response = await axios.get(url);
+      const data = response.data;
+      setBarangList(data);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   const fetchFilteredBarang = async (query: string) => {
@@ -102,20 +115,21 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
 
   const handleStatusChange = async (id: string, currentStatus: string) => {
     try {
-      const newStatus = currentStatus === 'Sudah diambil' ? 'Belum diambil' : 'Sudah diambil';
-      
+      const newStatus =
+        currentStatus === "Sudah diambil" ? "Belum diambil" : "Sudah diambil";
+
       const response = await fetch(`http://localhost:5000/api/barang/${id}`, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ statusBarang: newStatus })
+        body: JSON.stringify({ statusBarang: newStatus }),
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to update status');
+        throw new Error("Failed to update status");
       }
-  
+
       // Only refresh data if update was successful
       await fetchBarang();
       toast.success(`Status berhasil diubah menjadi ${newStatus}`, {closeOnClick: true});
@@ -124,7 +138,6 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
       toast.error("Gagal mengubah status barang", {closeOnClick: true});
     }
   };
-  
 
   return (
     <div>
@@ -138,7 +151,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
             <TableHead>Waktu Ditemukan</TableHead>
             <TableHead>Nama Penemu</TableHead>
             <TableHead>Kontak</TableHead>
-            <TableHead>Status Barang</TableHead>
+            <TableHead className="w-[10vw]">Status Barang</TableHead>
             <TableHead>Aksi</TableHead>
           </TableRow>
         </TableHeader>
@@ -172,15 +185,16 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
               </TableCell>
               <TableCell>
                 {barang.statusBarang === "Sudah diambil" ? (
-                  <div className="gap-1 w-fit self-stretch px-2 py-1 bg-green-50 border border-green-300 border-solid rounded-[50px] text-green-700 text-[12px]">
+                  <div className="flex items-center justify-center gap-1 w-fit self-stretch px-[0.75vw] py-[0.5vw] bg-green-50 border border-green-300 border-solid rounded-full text-green-700 text-[0.675vw]">
                     Sudah Diambil
                   </div>
                 ) : (
-                  <div className="gap-1 w-fit self-stretch px-2 py-1 bg-red-50 border border-red-300 border-solid rounded-[50px] text-red-700 text-[12px]">
+                  <div className="flex items-center justify-center gap-1 w-fit self-stretch px-[0.75vw] py-[0.5vw] bg-red-50 border border-red-300 border-solid rounded-full text-red-700 text-[0.675vw]">
                     Belum Diambil
                   </div>
                 )}
               </TableCell>
+
               <TableCell>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -206,7 +220,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
                           Konfirmasi Penghapusan
                         </AlertDialogTitle>
                         <AlertDialogHeader>
-                           <p>Apakah Anda yakin ingin menghapus barang ini?</p>
+                          <p>Apakah Anda yakin ingin menghapus barang ini?</p>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                           <AlertDialogCancel>Batal</AlertDialogCancel>
