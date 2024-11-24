@@ -32,7 +32,7 @@ export default function Sidebar() {
 
   return (
     <div className={`flex flex-col ${collapsed ? 'w-16' : 'w-64'} bg-darkBlue1 border-r shadow-right transition-all duration-300 ease-in-out`}>
-      <div className="flex items-center justify-between h-16 border-b border-darkBlue2 px-4">
+      <div className={`flex items-center h-16 border-b border-darkBlue2 ${collapsed ? 'justify-center px-auto' : 'justify-between px-4'}`}>
         {!collapsed && (
           <div className="flex items-center">
             <img src="/LogoWhite.png" alt="Logo" className="w-10 h-8 mr-2" />
