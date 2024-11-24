@@ -42,19 +42,41 @@ interface Barang {
   statusBarang: "Sudah diambil" | "Belum diambil";
 }
 
-export default function BarangTable() {
+interface BarangTableProps {
+  searchQuery: string;
+}
+
+export default function BarangTable({ searchQuery }: BarangTableProps) {
   const [barangList, setBarangList] = useState<Barang[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const searchParams = new URLSearchParams(window.location.search);
+  const urlQuery = searchParams.get('query') || '';
 
   useEffect(() => {
-    fetchBarang();
-  }, []);
+    // Use URL query parameter or prop
+    const activeQuery = urlQuery || searchQuery;
+    if (activeQuery) {
+      fetchFilteredBarang(activeQuery);
+    } else {
+      fetchBarang();
+    }
+  }, [searchQuery, urlQuery]); // Re-run when either changes
 
   const fetchBarang = async () => {
     const response = await axios.get("http://localhost:5000/api/barang");
     const data = response.data;
     setBarangList(data);
+  };
+
+  const fetchFilteredBarang = async (query: string) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/barang/search?query=${encodeURIComponent(query)}`);
+      setBarangList(response.data);
+    } catch (error) {
+      console.error("Error fetching filtered barang:", error);
+      setBarangList([]); // Clear list on error or show error state
+    }
   };
 
   const handleDelete = async (id: string) => {
