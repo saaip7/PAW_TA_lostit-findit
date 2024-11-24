@@ -132,7 +132,7 @@ export default function AdminAccountForm() {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
-      <Button type="submit">Save Changes</Button>
+      <Button className='bg-darkBlue1 text-white font-medium hover:bg-[#3776E9] rounded-md' type="submit">Save Changes</Button>
     </form>
   )
 }

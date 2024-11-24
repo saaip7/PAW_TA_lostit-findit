@@ -2,9 +2,19 @@
 import BarangTable from "@/components/admin/LostProductTable";
 import { Search } from "lucide-react";
 import { useAdminProtected } from "@/hooks/useAdminProtected";
+import { useState } from "react";
+import router from "next/router";
 
 export default function AdminDashboard() {
   useAdminProtected();
+
+  const [searchQueryAdmin, setSearchQueryAdmin] = useState("");
+  const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Pass the search query to the BarangTable component
+    setSearchQueryAdmin(searchQueryAdmin.trim());
+  };
+
   return (
     <div className="p-6">
       <div className="flex flex-row mb-4 justify-between">
@@ -12,7 +22,7 @@ export default function AdminDashboard() {
         <div className="hidden md:block flex-1 max-w-2xl mx-8">
           <div className="relative">
             <form
-              //onSubmit={handleSearch}
+              onSubmit={handleSearch}
               className="hidden md:block flex-1 max-w-2xl mx-8"
             >
               <div className="relative">
@@ -21,9 +31,9 @@ export default function AdminDashboard() {
                 </div>
                 <input
                   type="text"
-                  //value={searchQuery}
-                  //onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Cari barangmu..."
+                  value={searchQueryAdmin}
+                  onChange={(e) => setSearchQueryAdmin(e.target.value)}
+                  placeholder="Cari barang..."
                   className="block w-full pl-10 pr-3 py-2 border border-darkBlue1 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-darkBlue1 focus:border-transparent text-darkBlue1 placeholder:text-darkBlue1"
                 />
               </div>
@@ -31,7 +41,7 @@ export default function AdminDashboard() {
           </div>
         </div>
       </div>
-      <BarangTable />
+      <BarangTable searchQuery={searchQueryAdmin} />
     </div>
   );
 }
