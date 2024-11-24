@@ -1,6 +1,6 @@
 const userRouter = require("express").Router();
 const { getOneUser } = require("../middlewares/userMiddlewares");
-const { authenticateToken } = require("../middlewares/authMiddlewares");
+const { authenticateToken, isAdmin } = require("../middlewares/authMiddlewares");
 
 const {
   registerUser,
@@ -10,7 +10,9 @@ const {
   updateUser,
   deleteUser,
   verifyToken,
-  getCurrentUser
+  getCurrentUser,
+  deleteUserByAdmin,
+  getAllUsersExceptAdmin
 } = require("../controllers/userControllers");
 
 // Add this new route
@@ -23,5 +25,9 @@ userRouter.get("/", getAllUsers);
 userRouter.get("/:id", getOneUser, getUser);
 userRouter.patch("/:id", getOneUser, updateUser);
 userRouter.delete("/:id", getOneUser, deleteUser);
+
+//admin
+userRouter.delete('/admin/users/:id', authenticateToken, isAdmin, deleteUserByAdmin);
+userRouter.get('/admin/users', authenticateToken, isAdmin, getAllUsersExceptAdmin);
 
 module.exports = userRouter;

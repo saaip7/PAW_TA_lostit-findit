@@ -4,7 +4,7 @@ import CustomTextBox from "@/components/customTextBox";
 import React, { useState } from "react";
 import { Button } from "@/components/button";
 import Link from "next/link";
-import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa install pake 'npm install react-feather --legacy-peer-deps'
+import { Eye, EyeOff } from "react-feather";
 import Logo from "@/components/logo";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -21,7 +21,7 @@ const Login: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+    
         const newErrors: { [key: string]: string } = {};
         if (!email) newErrors.email = 'Email is required';
         if (!password) newErrors.password = 'Password is required';
@@ -29,33 +29,49 @@ const Login: React.FC = () => {
     
         if (Object.keys(newErrors).length === 0) {
             try {
-              const response = await fetch("http://localhost:5000/api/user/login", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ email, password }),
-              });
-              const data: ApiResponse = await response.json();
-              if (response.ok) {
-                alert(data.message);
-                if (data.token) {
+                const response = await fetch("http://localhost:5000/api/user/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email, password }),
+                });
+    
+                const data: ApiResponse = await response.json();
+                
+                if (response.ok && data.token) {
+                    // Set cookies
                     Cookies.set("authToken", data.token, {
-                        expires: rememberMe ? 7 : 1 / 24, // 7 days if rememberMe, 1 hour if not
+                        expires: rememberMe ? 7 : 1 / 24,
                         sameSite: "Strict",
                         secure: process.env.NODE_ENV === "production",
-                  });
+                    });
                     Cookies.set('isLoggedIn', 'true');
-                    router.push("/");
+    
+                    // Check user role and redirect
+                    const userResponse = await fetch('http://localhost:5000/api/user/me', {
+                        headers: {
+                            'Authorization': `Bearer ${data.token}`
+                        }
+                    });
+    
+                    if (userResponse.ok) {
+                        const userData = await userResponse.json();
+                        if (userData.role === 'admin') {
+                            router.push('/admin');
+                        } else {
+                            router.push('/');
+                        }
+                    }
+                    alert('Login successful!');
+                } else {
+                    alert(data.message || 'Login failed');
                 }
-              } else {
-                alert(data.message);
-              }
             } catch (error) {
-              console.error("Error:", error);
-              alert("An error occurred. Please try again.");
+                console.error("Error:", error);
+                alert("An error occurred. Please try again.");
             }
-          }
+        }
     };
 
     return (
