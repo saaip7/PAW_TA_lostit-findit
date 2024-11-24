@@ -8,6 +8,7 @@ import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa insta
 import Logo from "@/components/logo";
 import { useRouter } from "next/navigation";
 import { ApiResponse } from "@/app/types/user";
+import { toast } from "react-toastify";
 
 const Register: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -43,14 +44,14 @@ const Register: React.FC = () => {
             });
             const data: ApiResponse = await response.json();
             if (response.ok) {
-              alert(data.message);
+              toast.success(data.message, {closeOnClick: true});  
               router.push("/login");
             } else {
-              alert(data.message);
+              toast.error(data.message, {closeOnClick: true});
             }
           } catch (error) {
             console.error("Error:", error);
-            alert("An error occurred. Please try again.");
+            toast.error("An error occurred. Please try again.", {closeOnClick: true});  
           }
         }
     };

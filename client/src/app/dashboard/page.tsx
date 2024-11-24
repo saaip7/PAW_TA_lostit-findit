@@ -11,6 +11,7 @@ import Loading from '@/components/Loading';
 import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangModal';
 import useAuth from '@/hooks/useAuth';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 
 export default function Dashboard() {
   useAuth();
@@ -43,7 +44,7 @@ export default function Dashboard() {
   
     if (password || confirmPassword) {
       if (password !== confirmPassword) {
-        alert("Passwords do not match!");
+        toast.warn('Passwords do not match!', {closeOnClick: true});
         return;
       }
     }
@@ -77,16 +78,16 @@ export default function Dashboard() {
       });
   
       if (response.ok) {
-        alert("Profile updated successfully!");
+        toast.success('Profile updated successfully!', {closeOnClick: true});
         setPassword('');
         setConfirmPassword('');
       } else {
         const errorData = await response.json();
-        alert(errorData.message || "Failed to update profile");
+        toast.error(errorData.message || "Failed to update profile", {closeOnClick: true});
       }
     } catch (error) {
       console.error('Error updating profile:', error);
-      alert("An error occurred while updating profile");
+      toast.error("An error occurred while updating profile", {closeOnClick: true});
     }
   };
 

@@ -29,7 +29,8 @@ import {
   AlertDialogCancel,
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
-import { useSearchParams } from "next/navigation";
+import { toast } from "react-toastify";
+
 
 interface Barang {
   _id: string;
@@ -47,14 +48,22 @@ interface BarangTableProps {
   searchQuery: string;
 }
 
-export default function BarangTable({ searchQuery }: BarangTableProps ) {
+export default function BarangTable({ searchQuery }: BarangTableProps) {
   const [barangList, setBarangList] = useState<Barang[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const searchParams = new URLSearchParams(window.location.search);
+  const urlQuery = searchParams.get('query') || '';
 
   useEffect(() => {
-    fetchBarang();
-  }, [searchQuery]);
+    // Use URL query parameter or prop
+    const activeQuery = urlQuery || searchQuery;
+    if (activeQuery) {
+      fetchFilteredBarang(activeQuery);
+    } else {
+      fetchBarang();
+    }
+  }, [searchQuery, urlQuery]); // Re-run when either changes
 
   const fetchBarang = async () => {
     try {
@@ -71,6 +80,16 @@ export default function BarangTable({ searchQuery }: BarangTableProps ) {
       setBarangList(data);
     } catch (error) {
       console.error("Error fetching products:", error);
+    }
+  };
+
+  const fetchFilteredBarang = async (query: string) => {
+    try {
+      const response = await axios.get(`http://localhost:5000/api/barang/search?query=${encodeURIComponent(query)}`);
+      setBarangList(response.data);
+    } catch (error) {
+      console.error("Error fetching filtered barang:", error);
+      setBarangList([]); // Clear list on error or show error state
     }
   };
 
@@ -113,10 +132,10 @@ export default function BarangTable({ searchQuery }: BarangTableProps ) {
 
       // Only refresh data if update was successful
       await fetchBarang();
-      alert(`Status berhasil diubah menjadi ${newStatus}`);
+      toast.success(`Status berhasil diubah menjadi ${newStatus}`, {closeOnClick: true});
     } catch (error) {
-      console.error("Error updating status:", error);
-      alert("Gagal mengubah status barang");
+      console.error('Error updating status:', error);
+      toast.error("Gagal mengubah status barang", {closeOnClick: true});
     }
   };
 

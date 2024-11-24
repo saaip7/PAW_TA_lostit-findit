@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X } from 'react-feather';
 import { Button } from '@/components/button';
 import CustomTextBox from '@/components/customTextBox';
+import { toast } from 'react-toastify';
 
 interface EditBarangModalProps {
   isOpen: boolean;
@@ -52,7 +53,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { // 5MB limit
-        alert('Image size should be less than 5MB');
+        toast.warn('Image size should be less than 5MB', {closeOnClick: true});
         return;
       }
       setFormData({ ...formData, foto: file });
@@ -118,12 +119,12 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
   
       onSubmit(formData);
       onClose();
-      alert('Barang updated successfully!');
+      toast.success('Barang updated successfully!', {closeOnClick: true});
       window.location.reload();
   
     } catch (error) {
       console.error('Error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to update barang. Please try again.');
+      toast.error(error instanceof Error ? error.message : 'Failed to update barang. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -228,7 +229,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
                       };
                       reader.readAsDataURL(file);
                     } else {
-                      alert('Please upload a PNG, JPG or JPEG file');
+                      toast.warn('Please upload a PNG, JPG or JPEG file', {closeOnClick: true});
                     }
                   }
                 }}
