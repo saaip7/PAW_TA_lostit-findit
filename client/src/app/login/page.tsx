@@ -4,7 +4,7 @@ import CustomTextBox from "@/components/customTextBox";
 import React, { useState } from "react";
 import { Button } from "@/components/button";
 import Link from "next/link";
-import { Eye, EyeOff } from "react-feather"; // kalau nggak ke detect bisa install pake 'npm install react-feather --legacy-peer-deps'
+import { Eye, EyeOff } from "react-feather";
 import Logo from "@/components/logo";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
@@ -41,12 +41,16 @@ const Login: React.FC = () => {
                 alert(data.message);
                 if (data.token) {
                     Cookies.set("authToken", data.token, {
-                        expires: rememberMe ? 7 : 1 / 24, // 7 days if rememberMe, 1 hour if not
+                        expires: rememberMe ? 7 : 1 / 24,
                         sameSite: "Strict",
                         secure: process.env.NODE_ENV === "production",
-                  });
+                    });
                     Cookies.set('isLoggedIn', 'true');
-                    router.push("/");
+                    if (data.role === 'admin') {
+                        router.push("/admin");
+                    } else {
+                        router.push("/");
+                    }
                 }
               } else {
                 alert(data.message);

@@ -131,6 +131,25 @@ const getCurrentUser = async (req, res) => {
   }
 };
 
+const deleteUserByAdmin = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await User.deleteOne({ _id: userId });
+    res.json({ message: "Deleted user" });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+const getAllUsersExceptAdmin = async (req, res) => {
+  try {
+    const users = await User.find({ role: { $ne: 'admin' } }).select('-password');
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 module.exports = {
   registerUser,
   loginUser,
@@ -140,4 +159,6 @@ module.exports = {
   deleteUser,
   verifyToken,
   getCurrentUser,
+  deleteUserByAdmin,
+  getAllUsersExceptAdmin,
 };
