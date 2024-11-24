@@ -8,25 +8,25 @@ import SortDropdown from "@/components/FilterSortDropdown";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState("");
-  const [totalItems, setTotalItems] = useState(0);
-  const [sortOrder, setSortOrder] = useState("asc");
+  const [query, setQuery] = useState(""); // Query untuk pencarian
+  const [totalItems, setTotalItems] = useState(0); // Jumlah total item hasil pencarian
+  const [sortOrder, setSortOrder] = useState("asc"); // Urutan sort (default: ascending)
 
   useEffect(() => {
-    // Set loading to false after the component mounts
+    // Set loading menjadi false setelah komponen mount
     setIsLoading(false);
   }, []);
 
+  // Kondisi ketika sedang loading
   if (isLoading) {
     return <Loading />;
   }
 
-
   return (
     <>
       <Navbar />
-      <div className="bg-whiteBg flex flex-col justify-center">
-        <div className="mt-16">
+      <div className="bg-whiteBg flex flex-col justify-between min-h-screen">
+        <div className="mt-16 flex-grow">
           <div className="flex flex-row items-center justify-between px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem]">
             <div className="flex flex-col items-start">
               <div className="flex flex-row items-center gap-2">
@@ -44,13 +44,30 @@ export default function Home() {
               <SortDropdown value={sortOrder} onValueChange={setSortOrder} />
             </div>
           </div>
-          <div className="mt-8">
-            <SearchCardGallery setQuery={setQuery} setTotalItems={setTotalItems} sortOrder={sortOrder}/>
+          <div className="mt-8 px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem]">
+            {totalItems > 0 ? (
+              <SearchCardGallery
+                setQuery={setQuery}
+                setTotalItems={setTotalItems}
+                sortOrder={sortOrder}
+              />
+            ) : (
+              <div className="flex flex-col items-center text-center">
+                <img
+                  src="/manConfused.png"
+                  alt="Tidak ada hasil"
+                  className="w-60 h-60"
+                />
+                <p className="text-md font-medium text-gray-500 mt-2">
+                  Tidak ada hasil untuk pencarian ini.
+                </p>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-      <div className="pt-40 bg-whiteBg">
-        <Footer />
+        <div className="pt-40 bg-whiteBg">
+          <Footer />
+        </div>
       </div>
     </>
   );

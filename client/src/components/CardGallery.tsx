@@ -1,6 +1,6 @@
 "use client";
 import ProductCard from "@/components/ProductCard";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
   Pagination,
@@ -10,33 +10,33 @@ import {
   PaginationNext,
   PaginationPrevious,
   PaginationEllipsis,
-} from "@/components/pagination/pagination"
+} from "@/components/pagination/pagination";
 
 const CardGallery: React.FC = () => {
-    const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 16;
-    const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 16;
+  const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get("http://localhost:5000/api/barang");
-                setProducts(response.data);
-            } catch (error) {
-                console.error("Error fetching products:", error);
-            }
-        };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/barang");
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
-        fetchProducts();
-    }, []);
+    fetchProducts();
+  }, []);
 
-    const indexOfLastProduct = currentPage * itemsPerPage;
-    const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
-    const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+  const indexOfLastProduct = currentPage * itemsPerPage;
+  const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    const totalPages = Math.ceil(products.length / itemsPerPage);
+  const totalPages = Math.ceil(products.length / itemsPerPage);
 
-    const handlePageChange = (pageNumber: number) => {
+  const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
@@ -47,38 +47,41 @@ const CardGallery: React.FC = () => {
           <ProductCard key={product._id} product={product} />
         ))}
       </div>
-      <Pagination className="mt-10">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              href="#"
-              onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-            />
-          </PaginationItem>
-          {Array.from({ length: totalPages }, (_, index) => (
-            <PaginationItem key={index}>
-              <PaginationLink
+      
+      {/* Conditional rendering of Pagination */}
+      {totalPages > 1 && (
+        <Pagination className="mt-10">
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
                 href="#"
-                isActive={currentPage === index + 1}
-                onClick={() => handlePageChange(index + 1)}
-              >
-                {index + 1}
-              </PaginationLink>
+                onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
+              />
             </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationEllipsis />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext
-              href="#"
-              onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+            {Array.from({ length: totalPages }, (_, index) => (
+              <PaginationItem key={index}>
+                <PaginationLink
+                  href="#"
+                  isActive={currentPage === index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default CardGallery;

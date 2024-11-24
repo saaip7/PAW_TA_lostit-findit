@@ -30,7 +30,7 @@ export const DetailProductCard: React.FC<DetailProps> = ({
     return `https://wa.me/${formattedNumber}`;
   };
   return (
-    <article className="flex flex-wrap gap-9 items-start px-5 py-6 bg-white rounded-2xl border border-gray-200 border-solid shadow-md mx-[4rem] sm:mx-[6rem] md:mx-[8rem]">
+    <article className="flex flex-wrap gap-9 items-start px-5 py-6 bg-white rounded-2xl border border-gray-200 border-solid shadow-md mx-[4rem] sm:mx-[6rem] md:mx-[8rem] 2xl:mx-[10rem]">
       <div className="flex overflow-hidden flex-col rounded-lg min-w-[240px] w-[404px]">
         <img loading="lazy" src={foto} alt={namaBarang} className="object-cover w-full aspect-[1.18] " />
       </div>
