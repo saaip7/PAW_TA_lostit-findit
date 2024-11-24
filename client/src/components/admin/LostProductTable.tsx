@@ -77,27 +77,28 @@ export default function BarangTable() {
     closeEditModal();
   };
 
-  const handleStatusChange = async (id: string, currentStatus: 'Sudah diambil' | 'Belum diambil') => {
+  const handleStatusChange = async (id: string, currentStatus: string) => {
     try {
-      const updatedStatus = currentStatus === 'Sudah diambil' ? 'Belum diambil' : 'Sudah diambil';
-      const response = await axios.put(
-        `http://localhost:5000/api/barang/${id}`,
-        { statusBarang: updatedStatus },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
-
-      if (response.status === 200) {
-        alert('Status updated successfully');
-        fetchBarang();
-      } else {
-        console.error('Failed to update status. Server response:', response);
+      const newStatus = currentStatus === 'Sudah diambil' ? 'Belum diambil' : 'Sudah diambil';
+      
+      const response = await fetch(`http://localhost:5000/api/barang/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ statusBarang: newStatus })
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to update status');
       }
+  
+      // Only refresh data if update was successful
+      await fetchBarang();
+      alert(`Status berhasil diubah menjadi ${newStatus}`);
     } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error('Axios error:', error.response?.data || error.message);
-      } else {
-        console.error('Unexpected error:', error);
-      }
+      console.error('Error updating status:', error);
+      alert('Gagal mengubah status barang');
     }
   };
   
