@@ -3,6 +3,16 @@ import { AiFillEdit } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { BsCheckLg } from "react-icons/bs";
 import EditBarangModal, {EditBarangFormData} from './editBarangModal';
+import {
+  AlertDialog,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+  AlertDialogContent, 
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/components/ui/alert-dialog";
 
 interface DetailProps {
   foto: string;
@@ -62,60 +72,57 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
     };
 
     const handleDelete = async () => {
-      if (window.confirm('Are you sure you want to delete this item?')) {
-        try {
-          // Check if the image URL is from Cloudinary
-          if (foto.includes('cloudinary.com')) {
-            // Extract public_id from Cloudinary URL
-            const urlParts = foto.split('/');
-            const folderIndex = urlParts.indexOf('lost-found');
-            
-            if (folderIndex !== -1) {
-              const publicId = urlParts.slice(folderIndex).join('/').split('.')[0];
+      try {
+        // Check if the image URL is from Cloudinary
+        if (foto.includes('cloudinary.com')) {
+          // Extract public_id from Cloudinary URL
+          const urlParts = foto.split('/');
+          const folderIndex = urlParts.indexOf('lost-found');
           
-              // Try to delete from Cloudinary first
-              try {
-                const cloudinaryResponse = await fetch('http://localhost:5000/api/upload', {
-                  method: 'DELETE',
-                  headers: {
-                    'Content-Type': 'application/json'
-                  },
-                  body: JSON.stringify({ public_id: publicId })
-                });
-          
-                if (!cloudinaryResponse.ok) {
-                  console.warn('Failed to delete image from Cloudinary');
-                }
-              } catch (cloudinaryError) {
-                console.warn('Error deleting from Cloudinary:', cloudinaryError);
+          if (folderIndex !== -1) {
+            const publicId = urlParts.slice(folderIndex).join('/').split('.')[0];
+        
+            // Try to delete from Cloudinary first
+            try {
+              const cloudinaryResponse = await fetch('http://localhost:5000/api/upload', {
+                method: 'DELETE',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ public_id: publicId })
+              });
+        
+              if (!cloudinaryResponse.ok) {
+                console.warn('Failed to delete image from Cloudinary');
               }
+            } catch (cloudinaryError) {
+              console.warn('Error deleting from Cloudinary:', cloudinaryError);
             }
           }
-    
-          // Delete the barang from MongoDB regardless of image source
-          const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
-            method: 'DELETE',
-            headers: {
-              'Content-Type': 'application/json',
-            }
-          });
-    
-          if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to delete item from database');
-          }
-    
-          alert('Item deleted successfully');
-          window.location.reload();
-    
-        } catch (error) {
-          if (error instanceof Error) {
-            console.warn('Delete operation failed:', error.message);
-          } else {
-            console.warn('Delete operation failed with unknown error');
-          }
-          alert('Failed to delete item. Please try again.');
         }
+    
+        const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        });
+    
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.message || 'Failed to delete item from database');
+        }
+    
+        alert('Item deleted successfully');
+        window.location.reload();
+    
+      } catch (error) {
+        if (error instanceof Error) {
+          console.warn('Delete operation failed:', error.message);
+        } else {
+          console.warn('Delete operation failed with unknown error');
+        }
+        alert('Failed to delete item. Please try again.');
       }
     };
 
@@ -126,9 +133,28 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
             <button className="p-2 bg-[#ECECEC] rounded-md hover:opacity-80 transition-opacity border border-[#9E9E9E]" onClick={handleEditClick}>
                 <AiFillEdit className="w-7 h-7 text-[#202020]"/>
             </button>
-            <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]" onClick={handleDelete}>
-                <BsTrashFill className="w-7 h-7 text-[#BA1818]"/>
-            </button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]">
+                  <BsTrashFill className="w-7 h-7 text-[#BA1818]"/>
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Konfirmasi Penghapusan</AlertDialogTitle>
+                  <p>Apakah Anda yakin ingin menghapus barang ini?</p>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Batal</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDelete}
+                    className="bg-red-500 hover:bg-red-600"
+                  >
+                    Hapus
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
             {localStatus !== 'Sudah diambil' && (
                 <button className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity border border-" onClick={handleStatusUpdate}>
                     <BsCheckLg className="w-7 h-7 text-white"/>
