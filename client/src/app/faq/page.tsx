@@ -16,7 +16,7 @@ export default function FAQPage() {
         </div>
 
             <div className="flex flex-col md:grid grid-cols-[65%_35%] gap-4 p-10">
-                <div className="p-5">
+                <div className="p-5 pb-16">
                     <FaqAccordion />
                 </div>
                 <div className="bg-darkBlue2 w-[90%] max-w-[432px] h-auto mx-auto my-9 p-6 rounded-lg self-start">
