@@ -74,10 +74,21 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
         throw new Error('Please fill in all required fields');
       }
   
-      let updatedData: any = {
+      // Create a proper date object with today's date and the selected time 
+      const today = new Date();
+      const [hours, minutes] = formData.waktuDitemukan.split(':');
+      const waktuDitemukan = new Date(
+        today.getFullYear(),
+        today.getMonth(), 
+        today.getDate(),
+        parseInt(hours),
+        parseInt(minutes)
+      );
+  
+      const updatedData: any = {
         namaBarang: formData.namaBarang,
         tempatDitemukan: formData.tempatDitemukan,
-        waktuDitemukan: formData.waktuDitemukan,
+        waktuDitemukan: waktuDitemukan.toISOString(), // Convert to ISO string
         deskripsiBarang: formData.deskripsiBarang
       };
   

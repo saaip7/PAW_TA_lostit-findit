@@ -10,7 +10,6 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/pagination/pagination";
 
 const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalItems: (total: number) => void, sortOrder: string }> = ({ setQuery, setTotalItems, sortOrder }) => {
