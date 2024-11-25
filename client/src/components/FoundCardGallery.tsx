@@ -11,6 +11,8 @@ import {
   PaginationPrevious,
 } from "@/components/pagination/pagination";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const FoundCardGallery: React.FC<{ 
   setTotalItems: (total: number) => void, 
   sortOrder: string 
@@ -22,7 +24,7 @@ const FoundCardGallery: React.FC<{
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/barang");
+        const response = await axios.get(`${API_URL}/api/barang`);
         const foundProducts = response.data.filter((product: any) => 
           product.statusBarang === "Sudah diambil"
         );

@@ -19,6 +19,8 @@ export interface LaporBarangFormData {
   foto: File | null;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState<LaporBarangFormData>({
     namaBarang: '',
@@ -35,7 +37,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
     const fetchCurrentUser = async () => {
       try {
         const token = Cookies.get('authToken');
-        const response = await fetch('http://localhost:5000/api/user/me', {
+        const response = await fetch(`${API_URL}/api/user/me`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
@@ -98,7 +100,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
       const imageFormData = new FormData();
       imageFormData.append('file', formData.foto);
   
-      const uploadResponse = await fetch('http://localhost:5000/api/upload', {
+      const uploadResponse = await fetch(`${API_URL}/api/upload`, {
         method: 'POST',
         body: imageFormData,
       });
@@ -123,7 +125,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
         userId
       };
   
-      const submitResponse = await fetch('http://localhost:5000/api/barang', {
+      const submitResponse = await fetch(`${API_URL}/api/barang`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

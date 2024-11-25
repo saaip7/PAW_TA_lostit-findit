@@ -2,6 +2,8 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export const useAdminProtected = () => {
   const router = useRouter();
 
@@ -15,7 +17,7 @@ export const useAdminProtected = () => {
           return;
         }
 
-        const response = await fetch('http://localhost:5000/api/user/me', {
+        const response = await fetch(`${API_URL}/api/user/me`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

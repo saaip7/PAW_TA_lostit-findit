@@ -13,6 +13,8 @@ import useAuth from '@/hooks/useAuth';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function Dashboard() {
   useAuth();
 
@@ -59,7 +61,7 @@ export default function Dashboard() {
       if (noHP) userData.noHP = noHP;
   
       // Get the current user first to get their ID
-      const userResponse = await fetch('http://localhost:5000/api/user/me', {
+      const userResponse = await fetch(`${API_URL}/api/user/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -68,7 +70,7 @@ export default function Dashboard() {
       const user = await userResponse.json();
   
       // Then update using the user's ID
-      const response = await fetch(`http://localhost:5000/api/user/${user._id}`, {
+      const response = await fetch(`${API_URL}/api/user/${user._id}`, {
         method: 'PATCH', 
         headers: {
           'Content-Type': 'application/json',
@@ -95,7 +97,7 @@ export default function Dashboard() {
     const fetchUserData = async () => {
       try {
         const token = Cookies.get('authToken');
-        const response = await fetch('http://localhost:5000/api/user/me', {
+        const response = await fetch(`${API_URL}/api/user/me`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }
