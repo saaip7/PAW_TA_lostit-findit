@@ -109,6 +109,8 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
   };
 
   const handleModalSubmit = (updatedData: any) => {
+    //biar kepake
+    console.log(updatedData);
     fetchBarang();
     closeEditModal();
   };

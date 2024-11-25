@@ -9,7 +9,6 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/pagination/pagination";
 
 const CardGallery: React.FC = () => {

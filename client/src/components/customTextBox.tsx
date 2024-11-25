@@ -18,7 +18,6 @@ const CustomTextBox: React.FC<CustomTextBoxProps> = ({
     onChange,
     placeholder,
     error = false,
-    className = "",
     ...props
 }) => {
     return (

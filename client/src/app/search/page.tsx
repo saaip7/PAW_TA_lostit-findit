@@ -31,7 +31,7 @@ export default function Home() {
             <div className="flex flex-col items-start">
               <div className="flex flex-row items-center gap-2">
                 <h2 className="font-bold text-2xl">Hasil pencarian</h2>
-                <p className="font-bold text-2xl">"{query}"</p>
+                <p className="font-bold text-2xl">&quot;{query}&quot;</p>
               </div>
               <div className="flex flex-row gap-1 text-darkBlue1 font-medium">
                 <p className="text-lg">Menampilkan</p>
@@ -45,24 +45,11 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem]">
-            {totalItems > 0 ? (
-              <SearchCardGallery
-                setQuery={setQuery}
-                setTotalItems={setTotalItems}
-                sortOrder={sortOrder}
-              />
-            ) : (
-              <div className="flex flex-col items-center text-center">
-                <img
-                  src="/manConfused.png"
-                  alt="Tidak ada hasil"
-                  className="w-60 h-60"
-                />
-                <p className="text-md font-medium text-gray-500 mt-2">
-                  Tidak ada hasil untuk pencarian ini.
-                </p>
-              </div>
-            )}
+            <SearchCardGallery
+              setQuery={setQuery}
+              setTotalItems={setTotalItems}
+              sortOrder={sortOrder}
+            />
           </div>
         </div>
         <div className="pt-40 bg-whiteBg">

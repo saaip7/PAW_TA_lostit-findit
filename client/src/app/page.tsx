@@ -1,5 +1,4 @@
 "use client";
-import ProductCard from "@/components/ProductCard";
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import CardGallery from "@/components/CardGallery";
@@ -9,6 +8,7 @@ import Loading from "@/components/Loading";
 import { Plus } from "lucide-react";
 import LaporBarangModal, { LaporBarangFormData } from "@/components/laporBarangModal";
 import Cookies from "js-cookie";
+import Image from "next/image";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
@@ -45,16 +45,20 @@ export default function Home() {
           ></div>
           <div className="flex flex-col md:grid grid-cols-[40%_60%] items-center justify-center ">
             <div className="relative justify-center hidden md:block">
-              <img
+              <Image
                 src="/manConfused.png"
                 alt="man confused picture"
+                width={600}
+                height={600}
                 className="object contain absolute z-0"
-              ></img>
-              <img
+              />
+              <Image
                 src="/Man_Searching.png"
                 alt="man searching picture"
+                width={440}
+                height={400}
                 className="object contain ml-36 relative z-5"
-              ></img>
+              />
             </div>
             <div className="text-white z-10 md:text-right md:mr-10 md:mb-14 items-center md:mt-2 ml-10 md:ml-44 md:place-items-end">
               <div className="font-black lg:text-6xl text-4xl md:text-2xl">
@@ -114,14 +118,15 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <div className="ml-10 hidden lg:block">
-                <img
+                <div className="ml-10 hidden lg:block">
+                <Image
                   src="/manConfused.png"
                   alt="orang bingung"
                   className="absolute -bottom-[320px] right-28"
-                  style={{ width: "600px", height: "600px" }}
+                  width={600}
+                  height={600}
                 />
-              </div>
+                </div>
             </div>
             <div
               className="absolute -bottom-[60px] transform -translate-x-1/2 -left-14 bg-lightBlue2  h-full w-full"

@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
 import React from "react";
+import Image from "next/image";
 
 interface Product {
   productId: string;
@@ -91,9 +92,13 @@ export default async function ProductDetailPage({
               </div>
             </div>
             <div className="ml-10 hidden lg:block">
-              <img src="/manConfused.png" alt="orang bingung" 
-                    className="absolute -bottom-[320px] right-28"
-                    style={{width:'600px', height:'600px'}}/>
+              <Image 
+              src="/manConfused.png" 
+              alt="orang bingung" 
+              className="absolute -bottom-[320px] right-28"
+              width={600} 
+              height={600} 
+              />
             </div>
 
           </div>
