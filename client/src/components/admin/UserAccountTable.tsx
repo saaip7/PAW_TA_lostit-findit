@@ -23,6 +23,8 @@ interface User {
   role: 'user' | 'admin'
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function UserAccountsTable() {
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(false)
@@ -41,7 +43,7 @@ export default function UserAccountsTable() {
       }
 
       // First verify if the user is admin
-      const userResponse = await axios.get('http://localhost:5000/api/user/me', {
+      const userResponse = await axios.get(`${API_URL}/api/user/me`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -52,7 +54,7 @@ export default function UserAccountsTable() {
       }
 
       // Then fetch all users
-      const response = await axios.get('http://localhost:5000/api/user/admin/users', {
+      const response = await axios.get(`${API_URL}/api/user/admin/users`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -78,7 +80,7 @@ export default function UserAccountsTable() {
         throw new Error('No authentication token found')
       }
 
-      await axios.delete(`http://localhost:5000/api/user/admin/users/${id}`, {
+      await axios.delete(`${API_URL}/api/user/admin/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

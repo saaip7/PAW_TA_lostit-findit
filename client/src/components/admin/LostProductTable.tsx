@@ -53,6 +53,8 @@ interface BarangTableProps {
   searchQuery: string;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export default function BarangTable({ searchQuery }: BarangTableProps) {
   const [barangList, setBarangList] = useState<Barang[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -72,7 +74,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
 
   const fetchBarang = async () => {
     try {
-      let url = "http://localhost:5000/api/barang";
+      let url = `${API_URL}/api/barang`;
 
       // Jika ada searchQuery, tambahkan query param ke URL
       if (searchQuery) {
@@ -90,7 +92,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
 
   const fetchFilteredBarang = async (query: string) => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/barang/search?query=${encodeURIComponent(query)}`);
+      const response = await axios.get(`${API_URL}/api/barang/search?query=${encodeURIComponent(query)}`);
       setBarangList(response.data);
     } catch (error) {
       console.error("Error fetching filtered barang:", error);
@@ -99,7 +101,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
   };
 
   const handleDelete = async (id: string) => {
-    await axios.delete(`http://localhost:5000/api/barang/${id}`);
+    await axios.delete(`${API_URL}/api/barang/${id}`);
     fetchBarang();
   };
 
@@ -125,7 +127,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
       const newStatus =
         currentStatus === "Sudah diambil" ? "Belum diambil" : "Sudah diambil";
 
-      const response = await fetch(`http://localhost:5000/api/barang/${id}`, {
+      const response = await fetch(`${API_URL}/api/barang/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

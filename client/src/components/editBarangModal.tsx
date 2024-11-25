@@ -19,6 +19,8 @@ export interface EditBarangFormData {
   foto: File | null;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSubmit, barangId }) => {
   const [formData, setFormData] = useState<EditBarangFormData>({
     namaBarang: '',
@@ -33,7 +35,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
   useEffect(() => {
     if (barangId) {
       // Fetch the barang data from the database
-      fetch(`http://localhost:5000/api/barang/${barangId}`)
+      fetch(`${API_URL}/api/barang/${barangId}`)
         .then(response => response.json())
         .then(data => {
           setFormData({
@@ -97,7 +99,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
         const imageFormData = new FormData();
         imageFormData.append('file', formData.foto);
   
-        const uploadResponse = await fetch('http://localhost:5000/api/upload', {
+        const uploadResponse = await fetch(`${API_URL}/api/upload`, {
           method: 'POST', 
           body: imageFormData,
         });
@@ -115,7 +117,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
         updatedData.foto = uploadResult.imageUrl;
       }
   
-      const submitResponse = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+      const submitResponse = await fetch(`${API_URL}/api/barang/${barangId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
