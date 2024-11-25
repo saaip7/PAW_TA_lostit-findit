@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiFillEdit } from "react-icons/ai";
 import { BsTrashFill } from "react-icons/bs";
 import { BsCheckLg } from "react-icons/bs";
-import EditBarangModal, {EditBarangFormData} from './editBarangModal';
+//import EditBarangModal, {EditBarangFormData} from './editBarangModal';
 import {
   AlertDialog,
   AlertDialogTitle,
@@ -15,6 +15,13 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from 'react-toastify';
 
+import dynamic from 'next/dynamic';
+const EditBarangModal = dynamic(() => import('@/components/editBarangModal'), { ssr: false });
+
+import { EditBarangFormData } from './editBarangModal';
+
+
+
 interface DetailProps {
   foto: string;
   namaBarang: string;
@@ -25,7 +32,7 @@ interface DetailProps {
   barangId: string;
 }
   
-export const DetailBarangLaporan: React.FC<DetailProps> = ({
+const DetailBarangLaporan: React.FC<DetailProps> = ({
   foto,
   namaBarang,
   tempatDitemukan,
@@ -220,3 +227,5 @@ export const DetailBarangLaporan: React.FC<DetailProps> = ({
     </article>
   );
 };
+
+export default DetailBarangLaporan;

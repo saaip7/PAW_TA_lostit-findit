@@ -1,8 +1,11 @@
 "use client";
-import BarangTable from "@/components/admin/LostProductTable";
+//import BarangTable from "@/components/admin/LostProductTable";
 import { Search } from "lucide-react";
 import { useAdminProtected } from "@/hooks/useAdminProtected";
 import { useState } from 'react';
+import dynamic from "next/dynamic";
+
+const BarangTable = dynamic(() => import("@/components/admin/LostProductTable"), { ssr: false });
 
 export default function AdminDashboard() {
   useAdminProtected();

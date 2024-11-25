@@ -1,6 +1,5 @@
 "use client";
 import React from 'react';
-import { DetailBarangLaporan } from '@/components/detailBarangLaporan';
 import { type Product } from "@/components/BarangLaporan";
 import {
   Pagination,
@@ -10,6 +9,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/pagination/pagination";
+
+import dynamic from 'next/dynamic';
+
+const DetailBarangLaporan = dynamic(() => import('@/components/detailBarangLaporan'), { ssr: false });
 
 interface DashboardGalleryProps {
   products: Product[];

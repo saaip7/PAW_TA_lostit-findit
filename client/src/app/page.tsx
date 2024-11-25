@@ -6,9 +6,13 @@ import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
 import Loading from "@/components/Loading";
 import { Plus } from "lucide-react";
-import LaporBarangModal, { LaporBarangFormData } from "@/components/laporBarangModal";
+const LaporBarangModal = dynamic(() => import("@/components/laporBarangModal"));
+import { LaporBarangFormData } from "@/components/laporBarangModal";
 import Cookies from "js-cookie";
 import Image from "next/image";
+import dynamic from "next/dynamic";
+
+
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
