@@ -11,7 +11,10 @@ export default function FAQPage() {
         <>
         <Navbar />
         <div className="bg-white min-h-screen">
-            <div className="text-lg px-14 font-semibold pt-10">Frequently Asked Questions</div>
+        <div className="bg-white border-b border-gray-300 text-lg font-semibold pt-10 pb-4 text-left mx-14">
+            Frequently Asked Questions
+        </div>
+
             <div className="flex flex-col md:grid grid-cols-[65%_35%] gap-4 p-10">
                 <div className="p-5">
                     <FaqAccordion />
