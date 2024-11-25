@@ -12,7 +12,6 @@ import {
 import { EllipsisVertical } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
 import axios from "axios";
-import EditBarangModal from "@/components/editBarangModal";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +29,12 @@ import {
   AlertDialogAction,
 } from "@/components/ui/alert-dialog";
 import { toast } from "react-toastify";
+
+import dynamic from "next/dynamic";
+
+const EditBarangModal = dynamic(() => import("@/components/editBarangModal"), {
+  ssr: false,
+});
 
 
 interface Barang {
