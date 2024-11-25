@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import SearchCardGallery from "@/components/SearchCardGallery";
 import { Footer } from "@/components/Footer";
 import Loading from "@/components/Loading";
 import SortDropdown from "@/components/FilterSortDropdown";
@@ -9,7 +8,6 @@ import FoundCardGallery from "@/components/FoundCardGallery";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
-  const [query, setQuery] = useState("");
   const [totalItems, setTotalItems] = useState(0);
   const [sortOrder, setSortOrder] = useState("asc");
 

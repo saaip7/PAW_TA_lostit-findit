@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import { DetailBarangLaporan } from '@/components/detailBarangLaporan';
 import { type Product } from "@/components/BarangLaporan";
 import {
@@ -9,7 +9,6 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-  PaginationEllipsis,
 } from "@/components/pagination/pagination";
 
 interface DashboardGalleryProps {

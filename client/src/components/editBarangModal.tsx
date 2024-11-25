@@ -74,7 +74,7 @@ const EditBarangModal: React.FC<EditBarangModalProps> = ({ isOpen, onClose, onSu
         throw new Error('Please fill in all required fields');
       }
   
-      let updatedData: any = {
+      const updatedData: any = {
         namaBarang: formData.namaBarang,
         tempatDitemukan: formData.tempatDitemukan,
         waktuDitemukan: formData.waktuDitemukan,

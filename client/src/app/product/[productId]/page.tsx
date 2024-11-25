@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/button";
 import { Footer } from "@/components/Footer";
 import React from "react";
+import Image from "next/image";
 
 interface Product {
   productId: string;
@@ -68,7 +69,7 @@ export default async function ProductDetailPage({
       </div>
       
       <section className="py-[4rem]">
-        <div className="relative flex h-[300px] bg-darkBlue1 mx-[4rem] sm:mx-[6rem] md:mx-[8rem] rounded-2xl overflow-hidden">
+        <div className="relative flex h-[300px] bg-darkBlue1 mx-[4rem] sm:mx-[6rem] md:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden">
           <div className="flex flex-row items-center justify-center z-10">
             <div className="flex flex-col items-start px-[4rem]">
               <div className="font-bold text-3xl text-white">
@@ -91,14 +92,18 @@ export default async function ProductDetailPage({
               </div>
             </div>
             <div className="ml-10 hidden lg:block">
-              <img src="/manConfused.png" alt="orang bingung" 
-                    className="absolute -bottom-[320px] right-28"
-                    style={{width:'600px', height:'600px'}}/>
+              <Image 
+              src="/manConfused.png" 
+              alt="orang bingung" 
+              className="absolute -bottom-[320px] right-28"
+              width={600} 
+              height={600} 
+              />
             </div>
 
           </div>
-          <div className="absolute -bottom-[300px] -right-20 transform -translate-x-1/2 bg-lightBlue1 opacity-30 h-full w-full"
-                style={{ transform: 'rotate(153deg)', borderRadius:'99px'}}/>
+          <div className="absolute -bottom-[540px] -right-20 transform -translate-x-1/2 bg-lightBlue1 opacity-30 h-full w-full"
+                style={{ transform: 'rotate(153deg)', borderRadius:'99px', height:'500px'}}/>
           <div className="absolute -bottom-[60px] transform -translate-x-1/2 -left-14 bg-[#063FA8]  h-full w-full"
                 style={{ transform: 'rotate(150deg)', borderRadius:'99px', width:'700px', height:'500px'}}/>
         </div>
