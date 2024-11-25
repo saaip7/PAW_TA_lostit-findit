@@ -4,9 +4,10 @@ import { Footer } from "@/components/Footer";
 import Image from "next/image";
 import { Button } from "@/components/button";
 import { ArrowLeft, House  } from 'lucide-react';
-
+import { useRouter } from 'next/navigation';
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <Navbar />
@@ -29,11 +30,11 @@ export default function Home() {
             </div>
           </div>
           <div className="flex flew-row gap-2 mt-4  ">
-            <Button variant={"default"} className="rounded-md">
+            <Button variant={"default"} className="rounded-md" onClick={() => router.back()}>
                 <ArrowLeft className="w-6 h-6 mr-2" />
                 Kembali
             </Button>
-            <Button variant={"outline"}>
+            <Button variant={"outline"} onClick={() => router.push('/')}>
               <House className="w-6 h-6 mr-2" />
                 Beranda
             </Button>
