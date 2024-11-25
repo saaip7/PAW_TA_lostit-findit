@@ -77,7 +77,7 @@ export default function Home() {
                 barang-barang yang hilang di area kampus.
               </p>
               <div className="flex flex-row mt-4 md:justify-end justify-start">
-                <a href="/" target="_blank" rel="noopener noreferrer">
+                <a href="/faq" rel="noopener noreferrer">
                   <Button
                     variant="outline"
                     className="px-4 py-2 rounded-md text-white hover:bg-darkBlue1 border-white hover:border-darkBlue1"
