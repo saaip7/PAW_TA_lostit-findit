@@ -64,7 +64,7 @@ const Login: React.FC = () => {
                             router.push('/');
                         }
                     }
-                    toast.success('Login successful!', {closeOnClick: true});
+                    toast.success('Berhasil Masuk!', {closeOnClick: true});
                 } else {
                     toast.error(data.message || 'Login failed!', {closeOnClick: true});
                 }

@@ -91,11 +91,11 @@ const Navbar = () => {
                     Dashboard
                   </Button>
                 </a>
-                <a href="/" onClick={handleLogout} rel="noopener noreferrer">
+                <Link href="/" onClick={handleLogout} rel="noopener noreferrer">
                   <Button variant="default" className="px-4 py-2 rounded-md">
                     Keluar
                   </Button>
-                </a>
+                </Link>
               </>
             ) : (
               <>
