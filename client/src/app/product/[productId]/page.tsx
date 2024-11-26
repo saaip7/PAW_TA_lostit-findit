@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import React from "react";
 import Image from "next/image";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 interface Product {
   productId: string;
   foto: string;
@@ -22,7 +24,7 @@ interface Product {
 
 async function getProductData(productId: string): Promise<Product | null> {
   try {
-    const response = await fetch(`http://localhost:5000/api/barang/${productId}`, {
+    const response = await fetch(`${API_URL}/api/barang/${productId}`, {
       method: "GET",  
       headers: {
         "Content-Type": "application/json",

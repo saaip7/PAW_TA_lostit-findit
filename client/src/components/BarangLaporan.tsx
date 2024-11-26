@@ -21,6 +21,8 @@ interface BarangLaporanProps {
   onPageChange: (page: number) => void;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const BarangLaporan: React.FC<BarangLaporanProps> = ({ 
   filterStatus, 
   currentPage,
@@ -39,7 +41,7 @@ const BarangLaporan: React.FC<BarangLaporanProps> = ({
           return;
         }
 
-        const response = await fetch('http://localhost:5000/api/barang/my-items', {
+        const response = await fetch(`${API_URL}/api/barang/my-items`, {
           headers: {
             'Authorization': `Bearer ${token}`
           }

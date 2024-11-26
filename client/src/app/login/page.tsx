@@ -11,6 +11,8 @@ import Cookies from "js-cookie";
 import { ApiResponse } from "../types/user";
 import { toast } from "react-toastify";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const Login: React.FC = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -30,7 +32,7 @@ const Login: React.FC = () => {
     
         if (Object.keys(newErrors).length === 0) {
             try {
-                const response = await fetch("http://localhost:5000/api/user/login", {
+                const response = await fetch(`${API_URL}/api/user/login`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -50,7 +52,7 @@ const Login: React.FC = () => {
                     Cookies.set('isLoggedIn', 'true');
     
                     // Check user role and redirect
-                    const userResponse = await fetch('http://localhost:5000/api/user/me', {
+                    const userResponse = await fetch(`${API_URL}/api/user/me`, {
                         headers: {
                             'Authorization': `Bearer ${data.token}`
                         }

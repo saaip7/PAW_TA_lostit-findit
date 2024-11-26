@@ -31,6 +31,8 @@ interface DetailProps {
   statusBarang: string;
   barangId: string;
 }
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
   
 const DetailBarangLaporan: React.FC<DetailProps> = ({
   foto,
@@ -56,7 +58,7 @@ const DetailBarangLaporan: React.FC<DetailProps> = ({
 
     const handleStatusUpdate = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+        const response = await fetch(`${API_URL}/api/barang/${barangId}`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
@@ -92,7 +94,7 @@ const DetailBarangLaporan: React.FC<DetailProps> = ({
         
             // Try to delete from Cloudinary first
             try {
-              const cloudinaryResponse = await fetch('http://localhost:5000/api/upload', {
+              const cloudinaryResponse = await fetch(`${API_URL}/api/upload`, {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json'
@@ -109,7 +111,7 @@ const DetailBarangLaporan: React.FC<DetailProps> = ({
           }
         }
     
-        const response = await fetch(`http://localhost:5000/api/barang/${barangId}`, {
+        const response = await fetch(`${API_URL}/api/barang/${barangId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
