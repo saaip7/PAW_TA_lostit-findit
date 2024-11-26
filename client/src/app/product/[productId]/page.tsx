@@ -52,6 +52,13 @@ export default async function ProductDetailPage({
   if (!product) {
     return notFound(); // Show 404 page if product is not found
   }
+  const formatWhatsAppLink = (phoneNumber: string) => {
+    // Remove any non-digit characters
+    const cleanNumber = phoneNumber.replace(/\D/g, '');
+    // Add country code if not present
+    const formattedNumber = cleanNumber.startsWith('62') ? cleanNumber : `62${cleanNumber.substring(1)}`;
+    return `https://wa.me/${formattedNumber}`;
+  };
 
   return (
     <>
@@ -84,7 +91,7 @@ export default async function ProductDetailPage({
                       FAQ
                     </Button>
                   </a>
-                  <a href="/" target="_blank" rel="noopener noreferrer">
+                  <a href='https://wa.me/6282324105677' target="_blank" rel="noopener noreferrer">
                     <Button variant="outline" className="px-4 py-2 rounded-md ml-4 text-white hover:bg-darkBlue1 border-white hover:border-darkBlue1">
                       Tanya Admin
                     </Button>

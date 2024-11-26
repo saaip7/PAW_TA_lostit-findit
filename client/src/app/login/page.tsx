@@ -125,9 +125,6 @@ const Login: React.FC = () => {
                             onChange={(e) => setRememberMe(e.target.checked)}></input>
                             <span className="text-darkGray">Ingat aku</span>
                         </label>
-                        <Link href="" className="text-darkBlue1 hover:underline">
-                            Lupa Password
-                        </Link>
                     </div>
                     <Button variant="default" className="w-full h-12 mt-4">
                         Masuk
