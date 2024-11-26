@@ -24,7 +24,7 @@ export default function FAQPage() {
                         <div className="text-white text-base md:text-lg font-semibold mb-2 text-left">Tidak menemukan jawaban? Hubungi kami</div>
                         <div className="text-white text-sm md:text-base font-normal text-left">Kami siap membantu anda menemukan jawaban yang kamu cari</div>
                         <div className='py-2'>
-                            <a href='/' target="_blank" rel="noopener noreferrer">
+                            <a href='https://wa.me/6282324105677' target="_blank" rel="noopener noreferrer">
                                 <Button variant="default" className="px-4 py-3 rounded-md bg-whiteBg hover:border-white border border-transparent hover:bg-darkBlue2">
                                     <div className='flex flex-row items-start align-center gap-1 text-darkBlue2 hover:text-white'>
                                         <FaWhatsapp size={20}/>

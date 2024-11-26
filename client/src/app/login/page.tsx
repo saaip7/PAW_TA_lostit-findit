@@ -80,7 +80,7 @@ const Login: React.FC = () => {
     return (
         <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 mx-auto min-h-screen bg-white w-[100%]">
             <div className="h-1/2 flex flex-col">
-            <div className="self-start">
+            <div className="self-start ml-4 mt-4">
                 <div className="mb-16">
                     <Logo />
                 </div>
@@ -89,10 +89,10 @@ const Login: React.FC = () => {
                 <div className="text-black font-bold text-center text-4xl">
                     Masuk Sekarang
                 </div>
-                <div className="text-md font-regular text-gray">
+                <div className="text-md font-regular text-gray mx-3">
                     Masuk ke akunmu untuk menggunakan seluruh fitur kami.
                 </div>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4 mx-3">
                     <CustomTextBox
                         label="Email"
                         type="email"
@@ -125,9 +125,6 @@ const Login: React.FC = () => {
                             onChange={(e) => setRememberMe(e.target.checked)}></input>
                             <span className="text-darkGray">Ingat aku</span>
                         </label>
-                        <Link href="" className="text-darkBlue1 hover:underline">
-                            Lupa Password
-                        </Link>
                     </div>
                     <Button variant="default" className="w-full h-12 mt-4">
                         Masuk
