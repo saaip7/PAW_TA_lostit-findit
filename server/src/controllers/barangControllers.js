@@ -1,6 +1,7 @@
 const Barang = require("../models/barangModels");
 const User = require("../models/userModels");
 
+// Creates a new lost item entry with user details
 const createBarang = async (req, res) => {
   const {
     foto,
@@ -17,6 +18,7 @@ const createBarang = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Create new item with user details
     const newBarang = new Barang({
       userId,
       foto,
@@ -26,7 +28,7 @@ const createBarang = async (req, res) => {
       waktuDitemukan,
       namaPenemu: user.nama,
       kontak: user.noHP,
-      statusBarang: "Belum diambil",
+      statusBarang: "Belum diambil", // Initial status
     });
 
     await newBarang.save();
@@ -36,6 +38,7 @@ const createBarang = async (req, res) => {
   }
 };
 
+// Get all lost items
 const getAllBarang = async (req, res) => {
   try {
     const barangList = await Barang.find();
@@ -45,6 +48,7 @@ const getAllBarang = async (req, res) => {
   }
 };
 
+// Update item status
 const updateBarangStatus = async (req, res) => {
   try {
     const barang = await Barang.findById(req.params.id);
@@ -60,6 +64,7 @@ const updateBarangStatus = async (req, res) => {
   }
 };
 
+// Delete an item by ID
 const deleteBarang = async (req, res) => {
   try {
     await Barang.findByIdAndDelete(req.params.id);
@@ -69,6 +74,7 @@ const deleteBarang = async (req, res) => {
   }
 };
 
+// Get all items belonging to a specific user
 const getUserBarang = async (req, res) => {
   try {
     const items = await Barang.find({ userId: req.user.id });
@@ -78,6 +84,7 @@ const getUserBarang = async (req, res) => {
   }
 };
 
+// Edit an existing item by ID
 const editBarang = async (req, res) => {
   try {
     const barang = await Barang.findById(req.params.id);
@@ -85,6 +92,7 @@ const editBarang = async (req, res) => {
       return res.status(404).json({ message: "Barang not found" });
     }
 
+    // Update item details if provided in request, otherwise keep existing
     barang.namaBarang = req.body.namaBarang || barang.namaBarang;
     barang.deskripsiBarang = req.body.deskripsiBarang || barang.deskripsiBarang;
     barang.tempatDitemukan = req.body.tempatDitemukan || barang.tempatDitemukan;
@@ -98,6 +106,7 @@ const editBarang = async (req, res) => {
   }
 };
 
+// Search for items based on query and sort order
 const searchBarang = async (req, res) => {
   const query = req.query.query || "";
   const sortOrder = req.query.sort || "asc";
