@@ -34,7 +34,7 @@
 
 ---
 
-## Cara Menjalankan
+## Cara Menjalankan Aplikasi Secara Local
 
 ### 1. Clone Repository
 Jalankan perintah berikut untuk menyalin repository ke lokal:
