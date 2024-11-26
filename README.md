@@ -72,7 +72,7 @@ Sesuaikan dengan key milikmu
 ```env
 NEXT_PUBLIC_API_URL= ""
 ```
-Karena dijalankan di local, gunakan `http://localhost:port/` sesuai dengan port yang digunakan, **pastikan backend sudah berjalan**
+Karena dijalankan di local, gunakan `http://localhost:port/` sebagai endpoint backend sesuai dengan port yang digunakan (Biasanya NEXT.JS akan running backend di port 5000), **pastikan backend sudah berjalan**
 
 
 ### 4. Menjalankan Aplikasi
