@@ -1,6 +1,6 @@
 # Lost It Find It | PAW Tugas Akhir
 
-![header lost it find it](https://github.com/saaip7/PAW_TA_lostit-findit/blob/main/documentation/header-git.png)
+![header lost it find it](https://github.com/saaip7/PAW_TA_lostit-findit/blob/main/documentation/header-gitnew.png)
 
 **Lost It Find It** adalah aplikasi web yang dirancang untuk membantu mahasiswa mencari atau melaporkan barang-barang yang hilang atau ditemukan di area kampus. Aplikasi ini memungkinkan pengguna untuk mengunggah informasi barang temuan serta mencari barang mereka yang hilang. Proyek ini dikembangkan sebagai bagian dari Tugas Akhir untuk mata kuliah *Pengembangan Aplikasi Web*.
 
