@@ -39,9 +39,19 @@ const createBarang = async (req, res) => {
 };
 
 // Get all lost items
+// const getAllBarang = async (req, res) => {
+//   try {
+//     const barangList = await Barang.find();
+//     res.json(barangList);
+//   } catch (err) {
+//     res.status(500).json({ message: err.message });
+//   }
+// };
+
+// Get all lost items sorted by the latest uploaded
 const getAllBarang = async (req, res) => {
   try {
-    const barangList = await Barang.find();
+    const barangList = await Barang.find().sort({ createdAt: -1 });
     res.json(barangList);
   } catch (err) {
     res.status(500).json({ message: err.message });
