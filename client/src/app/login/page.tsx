@@ -76,7 +76,7 @@ const Login: React.FC = () => {
     };
 
     return (
-        <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 p-4 mx-auto min-h-screen bg-white w-[100%]">
+        <div className="flex flex-col md:grid grid-cols-[45%_55%] gap-4 mx-auto min-h-screen bg-white w-[100%]">
             <div className="h-1/2 flex flex-col">
             <div className="self-start">
                 <div className="mb-16">

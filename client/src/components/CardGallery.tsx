@@ -41,7 +41,7 @@ const CardGallery: React.FC = () => {
 
   return (
     <div className="bg-whiteBg flex flex-col justify-center">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mx-auto">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4 mx-auto">
         {currentProducts.map((product: any) => (
           <ProductCard key={product._id} product={product} />
         ))}
