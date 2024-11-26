@@ -77,7 +77,7 @@ export default async function ProductDetailPage({
                   Jangan khawatir, pergi ke halaman FAQ atau hubungi admin.
                 </div>
                 <div className="flex flex-row items-center mt-4">
-                  <a href="/" target="_blank" rel="noopener noreferrer">
+                  <a href="/faq" rel="noopener noreferrer">
                     <Button variant="default" className="px-4 py-2 rounded-md bg-white border text-darkBlue1 hover:bg-transparent hover:text-white">
                       FAQ
                     </Button>

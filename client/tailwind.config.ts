@@ -15,7 +15,7 @@ const config: Config = {
   			lightBlue1: '#DEE7F9',
   			lightBlue2: '#CFDDFB',
   			darkBlue1: '#1457D2',
-			darkBlue2: '#063FA8',
+  			darkBlue2: '#063FA8',
   			black: '#0E0E0E',
   			gray: '#99A2A5',
   			darkGray: '#667479',
@@ -63,6 +63,28 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		keyframes: {
+  			'accordion-down': {
+  				from: {
+  					height: '0'
+  				},
+  				to: {
+  					height: 'var(--radix-accordion-content-height)'
+  				}
+  			},
+  			'accordion-up': {
+  				from: {
+  					height: 'var(--radix-accordion-content-height)'
+  				},
+  				to: {
+  					height: '0'
+  				}
+  			}
+  		},
+  		animation: {
+  			'accordion-down': 'accordion-down 0.2s ease-out',
+  			'accordion-up': 'accordion-up 0.2s ease-out'
   		}
   	}
   },
