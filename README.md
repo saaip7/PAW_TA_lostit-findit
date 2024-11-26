@@ -48,10 +48,7 @@ Jalankan perintah berikut untuk menginstal semua dependensi:
 ```bash
 npm install
 ```
-atau jika menggunakan Yarn:
-```bash
-yarn install
-```
+
 
 > [!IMPORTANT]
 > Terkadang ada dependensi yang harus diinstall dalam folder `client` tersendiri maupun dalam folder `server` tersendiri.
