@@ -69,16 +69,16 @@ export default async function ProductDetailPage({
           />
         </div>
         <section className="py-[4rem]">
-          <div className="relative flex h-[300px] bg-darkBlue1 mx-[4rem] sm:mx-[6rem] md:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden">
-            <div className="flex flex-row items-center justify-center z-10">
-              <div className="flex flex-col items-start px-[4rem]">
-                <div className="font-bold text-3xl text-white">
+          <div className="relative flex h-auto md:h-[300px] bg-darkBlue1 mx-[4rem] sm:mx-[6rem] md:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden">
+            <div className="flex flex-row items-center md:justify-center z-10">
+              <div className="flex flex-col md:items-start md:px-[4rem] mt-10 px-[2rem]">
+                <div className="font-bold md:text-3xl text-2xl text-white">
                   Masih Bingung Caranya?
                 </div>
                 <div className="text-sm text-white mt-2">
                   Jangan khawatir, pergi ke halaman FAQ atau hubungi admin.
                 </div>
-                <div className="flex flex-row items-center mt-4">
+                <div className="flex flex-row items-center mt-4 md:mb-0 mb-10">
                   <a href="/faq" rel="noopener noreferrer">
                     <Button variant="default" className="px-4 py-2 rounded-md bg-white border text-darkBlue1 hover:bg-transparent hover:text-white">
                       FAQ

@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModels");
 
+// Create a new user
 const registerUser = async (req, res) => {
   const { nama, email, password, noHP} = req.body;
 
@@ -36,10 +37,12 @@ const loginUser = async (req, res) => {
       return res.status(401).json({ messsage: "Invalid credentials" });
     }
 
+    // Generate JWT token
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
 
+    // Set auth token in cookies
     res.cookie('authToken', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -53,6 +56,7 @@ const loginUser = async (req, res) => {
   }
 };
 
+// Fetch all users from the database
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -63,10 +67,12 @@ const getAllUsers = async (req, res) => {
 };
 
 const getUser = (req, res) => {
+  // Return the user from the response object
   res.json(res.user);
 };
 
 const updateUser = async (req, res) => {
+  // Update user fields if provided in the request body
   if (req.body.nama != null) {
     res.user.nama = req.body.nama;
   }
@@ -87,6 +93,7 @@ const updateUser = async (req, res) => {
   }
 };
 
+// Delete the user
 const deleteUser = async (req, res) => {
   try {
     await User.deleteOne({ _id: res.user._id });
@@ -102,6 +109,7 @@ const verifyToken = (req, res) => {
     return res.status(401).json({ message: "No token provided" });
   }
 
+  // Verify the token
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "Invalid token" });
@@ -110,6 +118,7 @@ const verifyToken = (req, res) => {
   });
 };
 
+// Return the current user
 const getCurrentUser = async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -131,6 +140,7 @@ const getCurrentUser = async (req, res) => {
   }
 };
 
+// Delete the user by admin
 const deleteUserByAdmin = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -141,6 +151,7 @@ const deleteUserByAdmin = async (req, res) => {
   }
 };
 
+// Fetch all users except admin
 const getAllUsersExceptAdmin = async (req, res) => {
   try {
     const users = await User.find({ role: { $ne: 'admin' } }).select('-password');
