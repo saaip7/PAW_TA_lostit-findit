@@ -6,8 +6,8 @@ export function Footer() {
     <footer className="bg-darkBlue1 text-white rounded-t-3xl">
       <div className="max-w-7xl mx-auto px-4 py-2 pt-8">
         {/* Navigation Links */}
-        <div className="flex flex-wrap items-center justify-between">
-          <nav className="flex gap-8 flex-wrap">
+        <div className="flex flex-wrap items-center justify-center lg:justify-between">
+          <nav className="flex flex-wrap gap-4 md:gap-8">
             <a href="/dashboard" className="hover:text-blue-100 transition-colors">
               Laporkan Barang
             </a>
@@ -18,29 +18,24 @@ export function Footer() {
               Barang Ditemukan
             </a>
           </nav>
-          
-          <div className="flex gap-4 items-center">
-            <a href="https://twitter.com" className="hover:text-blue-100 transition-colors">
-              <Twitter size={24} />
-            </a>
-            <a href="https://instagram.com" className="hover:text-blue-100 transition-colors">
-              <Instagram size={24} />
-            </a>
-          </div>
         </div>
 
         {/* Divider */}
         <div className="h-px bg-white my-8" />
 
         {/* Bottom Section */}
-        <div className="flex flex-wrap items-center justify-between mb-8">
-          <p className="text-sm">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <p className="text-sm text-center md:text-left w-full md:w-auto">
             © 2024 Lost It? Find It!. All rights reserved.
           </p>
-          
-          <img src="/LogoWhite.png" alt="logo" className="w-18 h-14" />
-          
-          <div className="flex gap-6">
+
+          <img
+            src="/LogoWhite.png"
+            alt="logo"
+            className="w-18 h-14 mx-auto md:mx-0"
+          />
+
+          <div className="flex flex-wrap gap-4 md:gap-6 justify-center md:justify-end w-full md:w-auto">
             <a href="/terms" className="text-sm hover:text-blue-100 transition-colors">
               Terms of Service
             </a>
