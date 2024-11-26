@@ -20,7 +20,7 @@ export default function SortDropdown({ value, onValueChange }: SortDropdownProps
 
   return (
     <Select value={value} onValueChange={onValueChange}>
-      <SelectTrigger className="min-w-[100px] h-10 border border-[#1457D2] text-sm font-medium">
+      <SelectTrigger className="max-w-[100px] h-10 border border-[#1457D2] text-sm font-medium">
         <SelectValue placeholder="Sort by" />
       </SelectTrigger>
       <SelectContent>
