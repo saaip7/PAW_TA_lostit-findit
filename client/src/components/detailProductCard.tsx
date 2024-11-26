@@ -39,24 +39,25 @@ export const DetailProductCard: React.FC<DetailProps> = ({
           {namaBarang}
         </h2>
         <div className="flex flex-col self-stretch mt-5 w-full font-medium max-w-[517px] max-md:max-w-[1280px]">
-            <div className="flex flex-wrap items-start py-2 w-full text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
-                <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 whitespace-nowrap w-[194px] text-darkGray">
+            <div className="flex flex-wrap items-start py-2 text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full md2:w-full w-[200px]">
+                <div className="gap-2.5 self-stretch px-3 md:pt-1 pb-0.5 pt-2 whitespace-nowrap md:w-[194px] text-darkGray">
                 Tempat
                 </div>
-                <div className="flex-1 shrink gap-2.5 px-3 pt-1 pb-0.5 min-w-[240px] leading-5 text-darkGray">
+                <div className="flex-1 shrink gap-2.5 px-3 pt-1 pb-0.5 md:min-w-[240px] leading-5 text-darkGray">
                 : {tempatDitemukan}
                 </div>
             </div>
-            <div className="flex flex-wrap items-start py-2 w-full text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
-                <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 whitespace-nowrap w-[194px] text-darkGray">
+            <div className="flex flex-wrap items-start py-2 text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full md2:w-full w-[200px]">
+                <div className="gap-2.5 self-stretch px-3 md:pt-1 pb-0.5 pt-2 whitespace-nowrap md:w-[194px] text-darkGray">
                 Tanggal
                 </div>
-                <div className="flex-1 shrink gap-2.5 px-3 pt-1 pb-0.5 min-w-[240px] text-darkGray">
-                : {waktuDitemukan}
+                <div className="flex flex-col md:flex-row gap-2 px-3 text-darkGray">
+                    <span>: {waktuDitemukan.split(',')[0]}</span>
+                    <span className='ml-2'>{waktuDitemukan.split(',')[1]}</span>
                 </div>
             </div>
-            <div className="flex flex-wrap items-start py-2 w-full border-b border-solid border-b-gray-200 max-md:max-w-full">
-                <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 text-sm leading-none text-gray-500 whitespace-nowrap w-[194px] text-darkGray">
+            <div className="flex flex-wrap items-start py-2 border-b border-solid border-b-gray-200 max-md:max-w-full w-[200px] md2:w-full">
+                <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 mb-2 text-sm leading-none text-gray-500 whitespace-nowrap w-[194px] text-darkGray">
                 Status
                 </div>
                 <div className="flex flex-1 shrink gap-2.5 items-start px-3 pt-1 pb-0.5 text-base leading-none text-red-700 basis-0 min-w-[240px]">
@@ -72,15 +73,15 @@ export const DetailProductCard: React.FC<DetailProps> = ({
                 )}
                 </div>
             </div>
-            <div className="flex flex-wrap items-start py-2 w-full text-sm text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
-                <div className="gap-2.5 self-stretch px-3 pt-1 pb-0.5 leading-none whitespace-nowrap w-[194px] text-darkGray">
+            <div className="flex flex-wrap items-start py-2 text-sm text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full md2:w-full w-[200px]">
+                <div className="gap-2.5 self-stretch px-3 md:pt-1 pt-2 pb-0.5 leading-none whitespace-nowrap md:w-[194px] text-darkGray">
                 Deskripsi
                 </div>
-                <div className="flex-1 shrink gap-2.5 px-3 py-0.5 h-20 leading-5 min-w-[240px] text-darkGray">
+                <div className="flex-1 shrink gap-2.5 px-3 py-0.5 md:h-20 hd-30 leading-5 md:min-w-[240px] text-darkGray">
                 : {deskripsiBarang}
                 </div>
             </div>
-            <div className='py-2'>
+            <div className='md:py-2 py-10'>
             <a href={formatWhatsAppLink(kontak)} target="_blank" rel="noopener noreferrer">
               <Button variant="default" className="px-4 py-2 rounded-md">
                 <div className='flex flex-row items-start align-center gap-1'>

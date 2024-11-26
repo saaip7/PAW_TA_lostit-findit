@@ -26,18 +26,18 @@ export default function Home() {
       <Navbar />
       <div className="bg-whiteBg flex flex-col justify-center">
         <div className="mt-16">
-          <div className="flex flex-row items-center justify-between px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem]">
-            <div className="flex flex-col items-start">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between px-10 lg1:px-0 lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem] gap-4 sm:gap-0">
+            <div className="flex flex-col items-start sm:mb-0 mb-4">
               <div className="flex flex-row items-center gap-2">
-                <h2 className="font-bold text-2xl">Barang Sudah Ditemukan</h2>
+                <h2 className="font-bold md:text-2xl text-base">Barang Sudah Ditemukan</h2>
               </div>
                 <div className="flex flex-row gap-1 text-darkBlue1 font-medium">
-                    <p className="text-lg">Menampilkan</p>
-                    <p className="text-lg">{totalItems}</p>
-                    <p className="text-lg">barang</p>
+                    <p className="md:text-lg text-xs">Menampilkan</p>
+                    <p className="md:text-lg text-xs">{totalItems}</p>
+                    <p className="md:text-lg text-xs">barang</p>
                 </div>
             </div>
-            <div className="text-black font-medium text-lg flex items-center gap-2">
+            <div className="flex flex-row justify-end sm:items-end sm:mt-0 text-black font-medium lg:text-lg text-sm items-center gap-2">
               <span>Urutkan</span>
               <SortDropdown value={sortOrder} onValueChange={setSortOrder} />
             </div>
