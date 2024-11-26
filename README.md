@@ -116,4 +116,8 @@ npm run dev
 - Tampilan dashboard admin
   
   ![dashboard admin](https://github.com/saaip7/PAW_TA_lostit-findit/blob/main/documentation/dashboard-admin.png)
+  
+
+> [!NOTE]
+> Jika ingin mencoba `admin` di web app deploy, hubungi kami secara langsung.
 
