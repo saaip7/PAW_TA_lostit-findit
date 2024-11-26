@@ -8,6 +8,8 @@ import { Footer } from "@/components/Footer";
 import React from "react";
 import Image from "next/image";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 interface Product {
   productId: string;
   foto: string;
@@ -22,7 +24,7 @@ interface Product {
 
 async function getProductData(productId: string): Promise<Product | null> {
   try {
-    const response = await fetch(`http://localhost:5000/api/barang/${productId}`, {
+    const response = await fetch(`${API_URL}/api/barang/${productId}`, {
       method: "GET",  
       headers: {
         "Content-Type": "application/json",
@@ -77,7 +79,7 @@ export default async function ProductDetailPage({
                   Jangan khawatir, pergi ke halaman FAQ atau hubungi admin.
                 </div>
                 <div className="flex flex-row items-center mt-4">
-                  <a href="/" target="_blank" rel="noopener noreferrer">
+                  <a href="/faq" rel="noopener noreferrer">
                     <Button variant="default" className="px-4 py-2 rounded-md bg-white border text-darkBlue1 hover:bg-transparent hover:text-white">
                       FAQ
                     </Button>

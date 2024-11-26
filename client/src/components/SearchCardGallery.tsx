@@ -12,6 +12,8 @@ import {
   PaginationPrevious,
 } from "@/components/pagination/pagination";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalItems: (total: number) => void, sortOrder: string }> = ({ setQuery, setTotalItems, sortOrder }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
@@ -25,7 +27,7 @@ const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalI
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/barang/search?query=${query}&sort=${sortOrder}`
+          `${API_URL}/api/barang/search?query=${query}&sort=${sortOrder}`
         );
         setProducts(response.data);
         setQuery(query);

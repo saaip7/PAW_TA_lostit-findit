@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label'
 import Cookies from 'js-cookie'
 import { toast } from 'react-toastify'
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 interface AdminAccount {
   name: string
   email: string
@@ -24,7 +26,7 @@ export default function AdminAccountForm() {
   const fetchAdminAccount = async () => {
     try {
       const token = Cookies.get('authToken')
-      const response = await fetch('http://localhost:5000/api/user/me', {
+      const response = await fetch(`${API_URL}/api/user/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -64,7 +66,7 @@ export default function AdminAccountForm() {
       if (password) userData.password = password
 
       // Get current user ID
-      const userResponse = await fetch('http://localhost:5000/api/user/me', {
+      const userResponse = await fetch(`${API_URL}/api/user/me`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -73,7 +75,7 @@ export default function AdminAccountForm() {
       const user = await userResponse.json()
 
       // Update user data
-      const response = await fetch(`http://localhost:5000/api/user/${user._id}`, {
+      const response = await fetch(`${API_URL}/api/user/${user._id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

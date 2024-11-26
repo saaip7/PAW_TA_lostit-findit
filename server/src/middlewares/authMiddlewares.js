@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModels"); // Add this import
 
+// Middleware to authenticate the token
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -14,6 +15,7 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+// Middleware to check if the user is an admin
 const isAdmin = async (req, res, next) => {
   try {
     // req.user.id comes from authenticateToken middleware
@@ -24,7 +26,7 @@ const isAdmin = async (req, res, next) => {
     }
 
     if (user.role === 'admin') {
-      next();
+      next(); // If user is admin, proceed to the next middleware
     } else {
       res.status(403).json({ message: 'Access denied - Admin only' });
     }

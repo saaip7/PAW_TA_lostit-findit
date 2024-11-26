@@ -11,6 +11,8 @@ import {
   PaginationPrevious,
 } from "@/components/pagination/pagination";
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 const CardGallery: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 16;
@@ -19,7 +21,7 @@ const CardGallery: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/barang");
+        const response = await axios.get(`${API_URL}/api/barang`);
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
