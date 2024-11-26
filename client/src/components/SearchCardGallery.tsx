@@ -16,10 +16,24 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalItems: (total: number) => void, sortOrder: string }> = ({ setQuery, setTotalItems, sortOrder }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
+  const [itemsPerPage, setItemsPerPage] = useState(16);
   const [products, setProducts] = useState([]);
   const searchParams = useSearchParams();
   const query = searchParams.get('query');
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const screenWidth = window.innerWidth;
+      setItemsPerPage(screenWidth < 768 ? 7 : 16);
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+
+    return () => {
+      window.removeEventListener("resize", updateItemsPerPage);
+    };
+  }, []);
 
   useEffect(() => {
     if (!query) return;
@@ -52,7 +66,7 @@ const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalI
 
   return (
     <div className="bg-whiteBg flex flex-col justify-center">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mx-auto">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md2:grid-cols-2 md1:grid-cols-3 lg1:grid-cols-4 mx-auto">
         {currentProducts.map((product: any) => (
           <ProductCard key={product._id} product={product} />
         ))}

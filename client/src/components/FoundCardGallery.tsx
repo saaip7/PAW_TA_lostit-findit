@@ -18,8 +18,22 @@ const FoundCardGallery: React.FC<{
   sortOrder: string 
 }> = ({ setTotalItems, sortOrder }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 16;
+  const [itemsPerPage, setItemsPerPage] = useState(16);
   const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const updateItemsPerPage = () => {
+      const screenWidth = window.innerWidth;
+      setItemsPerPage(screenWidth < 768 ? 7 : 16);
+    };
+
+    updateItemsPerPage();
+    window.addEventListener("resize", updateItemsPerPage);
+
+    return () => {
+      window.removeEventListener("resize", updateItemsPerPage);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -54,7 +68,7 @@ const FoundCardGallery: React.FC<{
 
   return (
     <div className="bg-whiteBg flex flex-col justify-center">
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 mx-auto">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md2:grid-cols-2 md1:grid-cols-3 lg1:grid-cols-4 mx-auto">
         {currentProducts.map((product: any) => (
           <ProductCard key={product._id} product={product} />
         ))}

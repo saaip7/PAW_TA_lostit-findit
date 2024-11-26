@@ -42,13 +42,13 @@ export default function Home() {
     <>
       <Navbar />
       <div className="bg-whiteBg flex flex-col justify-center">
-        <div className="relative flex h-[300px] bg-darkBlue1 mx-[4rem] sm:mx-[6rem] md:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden mt-10">
+        <div className="relative flex flex-col h-auto lg2:h-[300px] bg-darkBlue1 md:mx-[4rem] mx-[3rem] sm:mx-[6rem] lg:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden mt-12">
           <div
             className="absolute bg-darkBlue2 -bottom-[480px] -right-[100px] h-[977px] w-[814px]"
             style={{ transform: "rotate(-120deg)", borderRadius: "99px" }}
           ></div>
-          <div className="flex flex-col md:grid grid-cols-[40%_60%] items-center justify-center ">
-            <div className="relative justify-center hidden md:block">
+          <div className="flex flex-col lg3:grid grid-cols-[40%_60%] items-center justify-center ">
+            <div className="relative justify-center hidden lg3:block">
               <Image
                 src="/manConfused.png"
                 alt="man confused picture"
@@ -64,19 +64,19 @@ export default function Home() {
                 className="object contain ml-36 relative z-5"
               />
             </div>
-            <div className="text-white z-10 md:text-right md:mr-10 md:mb-14 items-center md:mt-2 ml-10 md:ml-44 md:place-items-end">
-              <div className="font-black lg:text-6xl text-4xl md:text-2xl">
+            <div className="text-white z-10 lg3:text-right lg3:mr-10 lg3:mb-14 items-center justify-center mt-5 lg3:mt-2 lg3:ml-44 lg3:place-items-end text-center">
+              <div className="font-black lg3:text-6xl text-3xl md:text-5xl mt-5">
                 Lost It? Find It!
               </div>
-              <div className="font-bold text-lg md:text-xl lg:text-2xl">
+              <div className="font-bold text-base md:text-lg lg3:text-2xl">
                 Temukan Barang Hilangmu
               </div>
-              <p className="mt-2 text-white leading-relaxed md:w-[400px] w-[300px] text-xs">
+              <p className="mt-6 text-white leading-relaxed lg3:w-[400px] mx-6 md:w-[520px] text-xs lg1:w-[350px]">
                 Kehilangan barang di kampus? Jangan khawatir! Melalui platform
                 kami, kamu dapat dengan mudah mencari dan menemukan kembali
                 barang-barang yang hilang di area kampus.
               </p>
-              <div className="flex flex-row mt-4 md:justify-end justify-start">
+              <div className="flex flex-row lg3:mt-4 mt-8 lg3:justify-end mb-10 justify-center">
                 <a href="/faq" rel="noopener noreferrer">
                   <Button
                     variant="outline"
@@ -101,17 +101,17 @@ export default function Home() {
           <CardGallery />
         </div>
         <section className="py-[4rem]">
-          <div className="relative flex h-[300px] bg-lightBlue1 mx-[4rem] sm:mx-[6rem] md:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden">
+          <div className="relative flex h-auto md:h-[300px] bg-lightBlue1 mx-[3rem] md:mx-[8rem] 2xl:mx-[10rem] rounded-2xl overflow-hidden">
             <div className="flex flex-row items-center md:justify-center z-10">
-              <div className="flex flex-col items-start px-[4rem]">
+              <div className="flex flex-col md:items-start md:px-[4rem] mt-10 px-[2rem]">
                 <div className="font-bold text-3xl text-black">
                   Tidak ada barangmu?
                 </div>
-                <div className="text-sm text-black mt-2 leading-relaxed md:w-[400px] w-[300px]">
+                <div className="text-sm text-black md:mt-2 leading-relaxed md:w-[400px] w-[200px] mt-6">
                   Coba cari di halaman barang yang sudah ditemukan, siapa tahu
                   tertukar dengan orang lain.
                 </div>
-                <div className="flex flex-row items-center mt-4">
+                <div className="flex flex-row items-center mt-4 mb-10">
                   <a href="/found" rel="noopener noreferrer">
                     <Button
                       variant="default"
@@ -122,7 +122,7 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-                <div className="ml-10 hidden lg:block">
+                <div className="ml-10 hidden lg1:block">
                 <Image
                   src="/manConfused.png"
                   alt="orang bingung"
@@ -161,7 +161,6 @@ export default function Home() {
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleSubmitLaporan}
       />
-
       <Footer />
     </>
   );
