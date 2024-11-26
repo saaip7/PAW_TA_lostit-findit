@@ -31,7 +31,7 @@
   - [Figma Desain](https://www.figma.com/design/dnyah6Box0ev2cUpI3nzMo/PAW---LostIt%3F-FindIt!?node-id=40-6495&t=UhATQ4dzstu3RkAk-1)
 
 > [!NOTE]
-> Web App deploy bisa digunakan 100%
+> Web App deploy bisa digunakan 100% dan juga responsive untuk mobile
 
 
 ---
