@@ -155,7 +155,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-xl p-6 w-[800px] max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-xl p-6 w-full max-w-3xl mx-4 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-1">
           <h2 className="text-xl font-bold text-black">Laporkan Barang Temuanmu</h2>
           <button onClick={onClose} className="p-1">
@@ -168,7 +168,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
         </p>
   
         <form className="space-y-2" onSubmit={handleSubmit}>
-          <div className="grid grid-cols-[200px_1fr] items-center gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4">
             <label className="text-[#667479] text-lg">Nama Barang*</label>
             <CustomTextBox
               type="text"
@@ -178,7 +178,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
             />
           </div>
   
-          <div className="grid grid-cols-[200px_1fr] items-center gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4">
             <label className="text-[#667479] text-lg">Tempat Menemukan*</label>
             <CustomTextBox
               type="text"
@@ -188,7 +188,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
             />
           </div>
   
-          <div className="grid grid-cols-[200px_1fr] items-center gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4">
             <label className="text-[#667479] text-lg">Jam*</label>
             <CustomTextBox
               type="time"
@@ -197,7 +197,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
             />
           </div>
   
-          <div className="grid grid-cols-[200px_1fr] items-start gap-4 pb-4 border-b border-gray-300">
+          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-start gap-4 pb-4 border-b border-gray-300">
             <label className="text-[#667479] text-lg pt-2">Deskripsi</label>
             <textarea
               value={formData.deskripsiBarang}
@@ -207,7 +207,7 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
             />
           </div>
   
-          <div className="grid grid-cols-[200px_1fr] items-center gap-4 pb-4 border-b border-gray-300">
+          <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4 pb-4 border-b border-gray-300">
             <label className="text-[#667479] text-lg">Gambar*</label>
             <div className="flex items-start gap-6">
               <div className="h-[80px] w-[80px] rounded-full bg-[#F5F5F5] flex items-center justify-center flex-shrink-0">
@@ -273,11 +273,11 @@ const LaporBarangModal: React.FC<LaporBarangModalProps> = ({ isOpen, onClose, on
             </div>
           </div>
 
-          <div className="flex justify-center gap-6 mt-6">
-            <Button variant="outline" type="button" onClick={onClose} className="px-8 py-2 w-full">
+          <div className="flex flex-col md:flex-row justify-center gap-6 mt-6">
+            <Button variant="outline" type="button" onClick={onClose} className="px-8 py-2 w-full md:w-auto">
               Cancel
             </Button>
-            <Button variant="default" type="submit" className="px-8 py-2 w-full" disabled={loading}>
+            <Button variant="default" type="submit" className="px-8 py-2 w-full md:w-auto" disabled={loading}>
               {loading ? 'Submitting...' : 'Confirm'}
             </Button>
           </div>
