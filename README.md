@@ -38,6 +38,12 @@
 
 ## Cara Menjalankan Aplikasi Secara Local
 
+### Prasyarat
+
+![mern stack](https://github.com/saaip7/PAW_TA_lostit-findit/blob/main/documentation/mern-stack.png)
+
+> Kami menggunakan **Next.js** sebagai framework `frontend` maupun `backend`
+
 ### 1. Clone Repository
 Jalankan perintah berikut untuk menyalin repository ke lokal:
 ```bash
@@ -99,28 +105,15 @@ npm run dev
 
 ---
 
-## Akun Tersedia
-Kami sediakan akun untuk mencoba role yang ada. Untuk akun role `user`, bisa dicoba untuk membuat akun sendiri
+## Informasi Lain
+> [!IMPORTANT]
+> Untuk mengganti role admin, ganti `role` di collection `users` mongodb anda.
 
-<details>
-<summary>Klik untuk membuka</summary>
-
+- Tampilan dashboard user
   
-**ADMIN**
+  ![dashboard user](https://github.com/saaip7/PAW_TA_lostit-findit/blob/main/documentation/dashboard-user.png)
 
-> email: admin@mail.com
-> 
-> pass: admin
-
-
-**USER**
-> email: fufu@mail.com
-> 
-> pass: fufu
-
-</details>
-
-> [!CAUTION]
-> Harap gunakan akun kami (terutama admin) dengan bijak.
-
+- Tampilan dashboard admin
+  
+  ![dashboard admin](https://github.com/saaip7/PAW_TA_lostit-findit/blob/main/documentation/dashboard-admin.png)
 
