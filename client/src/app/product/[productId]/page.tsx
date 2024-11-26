@@ -52,13 +52,6 @@ export default async function ProductDetailPage({
   if (!product) {
     return notFound(); // Show 404 page if product is not found
   }
-  const formatWhatsAppLink = (phoneNumber: string) => {
-    // Remove any non-digit characters
-    const cleanNumber = phoneNumber.replace(/\D/g, '');
-    // Add country code if not present
-    const formattedNumber = cleanNumber.startsWith('62') ? cleanNumber : `62${cleanNumber.substring(1)}`;
-    return `https://wa.me/${formattedNumber}`;
-  };
 
   return (
     <>
