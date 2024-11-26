@@ -11,6 +11,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/pagination/pagination";
+import { SkeletonCard } from "./SkeletonCard";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,6 +19,7 @@ const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalI
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(16);
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const searchParams = useSearchParams();
   const query = searchParams.get('query');
 
@@ -46,8 +48,10 @@ const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalI
         setProducts(response.data);
         setQuery(query);
         setTotalItems(response.data.length);
+        setIsLoading(false);
       } catch (error) {
         console.error("Error fetching products:", error);
+        setIsLoading(false);
       }
     };
 
@@ -67,9 +71,13 @@ const SearchCardGallery: React.FC<{ setQuery: (query: string) => void, setTotalI
   return (
     <div className="bg-whiteBg flex flex-col justify-center">
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md2:grid-cols-2 md1:grid-cols-3 lg1:grid-cols-4 mx-auto">
-        {currentProducts.map((product: any) => (
-          <ProductCard key={product._id} product={product} />
-        ))}
+      {isLoading
+          ? Array.from({ length: itemsPerPage }).map((_, index) => (
+              <SkeletonCard key={index} />
+            ))
+          : currentProducts.map((product: any) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
       </div>
       {totalPages > 1 && (
         <Pagination className="mt-10">
