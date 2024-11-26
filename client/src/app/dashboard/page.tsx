@@ -12,6 +12,7 @@ import LaporBarangModal, { LaporBarangFormData} from '@/components/laporBarangMo
 import useAuth from '@/hooks/useAuth';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import { Plus } from 'lucide-react';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -131,26 +132,26 @@ export default function Dashboard() {
       <Navbar />
       <div className="min-h-screen flex flex-col">
         <div className="flex-1">
-          <div className="text-black font-semibold text-3xl mt-16 ml-28">
+          <div className="text-black font-semibold text-[4.55vw] md:text-[4vw] lg:text-[3vw] xl:text-[2.5vw] 2xl:text-[2vw] mt-16 mx-4 sm:mx-8 md:mx-16 xl:mx-28">
             Dashboard Pelapor
           </div>
-          <div className="mt-4 ml-28 mr-28 mb-16">
+          <div className="mt-4 mb-16 mx-4 sm:mx-8 md:mx-16 xl:mx-28">
             <Tabs defaultValue="barang">
               <TabsList>
                 <TabsTrigger value="profile">Profile</TabsTrigger>
                 <TabsTrigger value="barang">Barang</TabsTrigger>
               </TabsList>
               <TabsContent value="profile">
-                <div className="flex flex-row justify-between mt-14 pb-4 border-b border-gray-300">
-                  <div className="text-black font-semibold text-2xl">
+                <div className="flex flex-col md:flex-row justify-between mt-14 pb-4 border-b border-gray-300">
+                  <div className="text-black font-semibold text-xl md:text-2xl">
                     Pengaturan Profile
                   </div>
                 </div>
                 
                 <div className="mt-8 w-full">
-                  <form onSubmit={handleUpdateProfile} className="space-y-1">
-                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
-                      <label className="text-[#667479] text-lg">Nama</label>
+                  <form onSubmit={handleUpdateProfile} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4 md:gap-8">
+                      <label className="text-[#667479] text-base md:text-lg">Nama</label>
                       <CustomTextBox
                         type="text"
                         value={name}
@@ -159,8 +160,8 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
-                      <label className="text-[#667479] text-lg">Email</label>
+                    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4 md:gap-8">
+                      <label className="text-[#667479] text-base md:text-lg">Email</label>
                       <CustomTextBox
                         type="email"
                         value={email}
@@ -169,8 +170,8 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
-                      <label className="text-[#667479] text-lg">Password</label>
+                    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4 md:gap-8">
+                      <label className="text-[#667479] text-base md:text-lg">Password</label>
                       <CustomTextBox
                         type="password"
                         value={password}
@@ -180,8 +181,8 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
-                      <label className="text-[#667479] text-lg">Konfirmasi Password</label>
+                    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4 md:gap-8">
+                      <label className="text-[#667479] text-base md:text-lg">Konfirmasi Password</label>
                       <CustomTextBox
                         type="password"
                         value={confirmPassword}
@@ -191,8 +192,8 @@ export default function Dashboard() {
                       />
                     </div>
 
-                    <div className="grid grid-cols-[200px_1fr] items-center gap-8">
-                      <label className="text-[#667479] text-lg">No WhatsApp</label>
+                    <div className="grid grid-cols-1 md:grid-cols-[200px_1fr] items-center gap-4 md:gap-8">
+                      <label className="text-[#667479] text-base md:text-lg">No WhatsApp</label>
                       <CustomTextBox
                         type="tel"
                         value={noHP}
@@ -212,18 +213,27 @@ export default function Dashboard() {
 
               <TabsContent value="barang">
                 <div className="flex flex-row justify-between mt-14 pb-4 border-b border-gray-300">
-                  <div className="text-black font-semibold text-2xl">
+                  <div className="text-black font-semibold text-md md:text-xl xl:text-2xl">
                     Barang Laporanmu
                   </div>
                   <div className="text-black font-medium text-lg flex items-center gap-2">
-                    <span>Filter&nbsp;by:</span>
+                    <span className="text-sm md:text-md xl:text-lg">Filter&nbsp;by:</span>
                     <FilterDropdown value={filterStatus} onValueChange={handleFilterChange} />
+                    {/* nyala kalau diatas sm */}
                     <Button 
                       variant="default" 
-                      className="px-4 py-2 rounded-md ml-2"
+                      className="hidden sm:block px-4 py-2 rounded-md ml-2"
                       onClick={() => setIsModalOpen(true)}
                     >
                       Buat Laporan
+                    </Button>
+                    {/* nyala kalau dibawah sm */}
+                    <Button 
+                      variant="default" 
+                      className="block sm:hidden px-4 py-2 rounded-md ml-2"
+                      onClick={() => setIsModalOpen(true)}
+                    >
+                      <Plus />
                     </Button>
 
                     <LaporBarangModal 
