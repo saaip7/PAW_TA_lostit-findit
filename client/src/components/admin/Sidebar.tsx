@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Settings , Package, User, ChevronLeft, ChevronRight, LogOut } from 'lucide-react'
 import Cookies from 'js-cookie'
 import { useState } from 'react'
+import { toast } from 'react-toastify';
 
 const menuItems = [
   { name: 'Barang Hilang', href: '/admin', icon: Package },
@@ -24,6 +25,7 @@ export default function Sidebar() {
     
     // Redirect to login page
     router.push('/login')
+    toast.info('Anda telah keluar', { closeOnClick: true })
   }
 
   const toggleCollapse = () => {

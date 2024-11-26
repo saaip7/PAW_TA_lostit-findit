@@ -102,6 +102,7 @@ export default function BarangTable({ searchQuery }: BarangTableProps) {
 
   const handleDelete = async (id: string) => {
     await axios.delete(`${API_URL}/api/barang/${id}`);
+    toast.success("Barang berhasil dihapus", {closeOnClick: true});
     fetchBarang();
   };
 

@@ -14,6 +14,7 @@ import {
   AlertDialogAction,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
+import { toast } from 'react-toastify';
 
 interface User {
   _id: string
@@ -91,6 +92,7 @@ export default function UserAccountsTable() {
       console.error('Error deleting user:', error)
       setError(error.response?.data?.message || 'Failed to delete user')
     } finally {
+      toast.success('User deleted successfully', { closeOnClick: true })
       setLoading(false)
     }
   }
