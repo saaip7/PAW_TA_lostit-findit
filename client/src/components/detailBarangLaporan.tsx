@@ -147,49 +147,49 @@ const DetailBarangLaporan: React.FC<DetailProps> = ({
       </div>
       {/* text part */}
       <div className="flex-grow flex flex-col items-start pl-3 font-bold w-full">
-        <div className="flex flex-rpwrap items-start w-full justify-between">
+        <div className="flex items-start w-full justify-between">
           <h2 className="flex flex-col max-w-full text-2xl text-stone-950">
             {namaBarang}
           </h2>
           {/* button part kl pas md dihidupin */}
-      <div className="flex gap-3 mt-4 md:mt-0 md:block">
-        <button
-          className="p-2 bg-[#ECECEC] rounded-md hover:opacity-80 transition-opacity border border-[#9E9E9E]"
-          onClick={handleEditClick}
-        >
-          <AiFillEdit className="w-7 h-7 text-[#202020]" />
-        </button>
-        <AlertDialog>
-          <AlertDialogTrigger asChild>
-            <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]">
-              <BsTrashFill className="w-7 h-7 text-[#BA1818]" />
+          <div className="flex gap-3 mt-4 md:mt-0 hidden md:block lg:hidden">
+            <button
+              className="p-2 bg-[#ECECEC] rounded-md hover:opacity-80 transition-opacity border border-[#9E9E9E] ml-2"
+              onClick={handleEditClick}
+            >
+              <AiFillEdit className="w-7 h-7 text-[#202020]" />
             </button>
-          </AlertDialogTrigger>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Konfirmasi Penghapusan</AlertDialogTitle>
-              <p>Apakah Anda yakin ingin menghapus barang ini?</p>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel>Batal</AlertDialogCancel>
-              <AlertDialogAction
-                onClick={handleDelete}
-                className="bg-red-500 hover:bg-red-600"
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1] ml-2">
+                  <BsTrashFill className="w-7 h-7 text-[#BA1818]" />
+                </button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Konfirmasi Penghapusan</AlertDialogTitle>
+                  <p>Apakah Anda yakin ingin menghapus barang ini?</p>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Batal</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDelete}
+                    className="bg-red-500 hover:bg-red-600"
+                  >
+                    Hapus
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+            {localStatus !== "Sudah diambil" && (
+              <button
+                className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity ml-2"
+                onClick={handleStatusUpdate}
               >
-                Hapus
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-        {localStatus !== "Sudah diambil" && (
-          <button
-            className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity"
-            onClick={handleStatusUpdate}
-          >
-            <BsCheckLg className="w-7 h-7 text-white" />
-          </button>
-        )}
-      </div>
+                <BsCheckLg className="w-7 h-7 text-white" />
+              </button>
+            )}
+          </div>
         </div>
         <div className="flex flex-col self-stretch mt-5 w-full font-medium max-md:max-w-[1280px]">
           <div className="flex flex-wrap items-start py-2 w-full text-sm leading-none text-gray-500 border-b border-solid border-b-gray-200 max-md:max-w-full">
@@ -235,16 +235,18 @@ const DetailBarangLaporan: React.FC<DetailProps> = ({
         </div>
       </div>
       {/* button part */}
-      <div className="flex gap-3 mt-4 md:mt-0 md:hidden">
-        <button
-          className="p-2 bg-[#ECECEC] rounded-md hover:opacity-80 transition-opacity border border-[#9E9E9E]"
-          onClick={handleEditClick}
-        >
-          <AiFillEdit className="w-7 h-7 text-[#202020]" />
-        </button>
+      <div className="flex flex-row gap-2 mt-4 md:mt-0 md:hidden lg:block">
+        {localStatus !== "Sudah diambil" && (
+          <button
+            className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity mb-2"
+            onClick={handleStatusUpdate}
+          >
+            <BsCheckLg className="w-7 h-7 text-white" />
+          </button>
+        )}
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1]">
+            <button className="p-2 bg-[#F9F2F2] rounded-md hover:opacity-80 transition-opacity border border-[#E2A1A1] mb-2">
               <BsTrashFill className="w-7 h-7 text-[#BA1818]" />
             </button>
           </AlertDialogTrigger>
@@ -264,14 +266,12 @@ const DetailBarangLaporan: React.FC<DetailProps> = ({
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
-        {localStatus !== "Sudah diambil" && (
-          <button
-            className="p-2 bg-[#1457D2] rounded-md hover:opacity-80 transition-opacity"
-            onClick={handleStatusUpdate}
-          >
-            <BsCheckLg className="w-7 h-7 text-white" />
-          </button>
-        )}
+        <button
+          className="p-2 bg-[#ECECEC] rounded-md hover:opacity-80 transition-opacity border border-[#9E9E9E] mb-2"
+          onClick={handleEditClick}
+        >
+          <AiFillEdit className="w-7 h-7 text-[#202020]" />
+        </button>
       </div>
       <EditBarangModal
         isOpen={isEditModalOpen}
