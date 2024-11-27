@@ -8,6 +8,8 @@ import Cookies from "js-cookie";
 import Link from "next/link";
 import LaporBarangModal, { LaporBarangFormData } from "./laporBarangModal";
 import { useRouter } from "next/navigation"; // For Next.js App Router
+import {toast} from "react-toastify";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +30,7 @@ const Navbar = () => {
   }, []);
 
   const handleLogout = () => {
+    toast.info("Anda telah keluar", {closeOnClick: true});
     Cookies.remove("isLoggedIn");
     setIsLoggedIn(false);
   };
@@ -40,7 +43,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[8rem] 2xl:px-[10rem] shadow-md border-b-2 border-gray-200">
+    <nav className="bg-white px-4rem lg:px-[6rem] xl:px-[7rem] shadow-md border-b-2 border-gray-200">
       <div className="mx-auto">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -135,29 +138,73 @@ const Navbar = () => {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {/* Mobile Search Bar */}
             <div className="relative mb-4">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-darkBlue1" />
-              </div>
-              <input
-                type="text"
-                placeholder="Cari barangmu..."
-                className="block w-full pl-10 pr-3 py-2 border border-darkBlue1 bg-red-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
+              <form onSubmit={handleSearch}>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search className="h-5 w-5 text-darkBlue1" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Cari barangmu..."
+                    className="block w-full pl-10 pr-3 py-2 border border-darkBlue1 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-darkBlue1 focus:border-transparent text-darkBlue1 placeholder:text-darkBlue1"
+                  />
+                </div>
+              </form>
             </div>
 
-            <button className="w-full text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg border border-blue-600 mb-2">
-              Lapor Barang Temuan
-            </button>
+            {/* Mobile Navigation */}
             {isLoggedIn ? (
-              <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                Profile
-              </button>
+              <>
+                <div className="flex flex-row w-full gap-2 justify-between">
+                  <Button
+                    variant="outline"
+                    className="px-4 py-2 rounded-md w-[50%]"
+                    onClick={() => setIsModalOpen(true)} // Add onClick handler
+                  >
+                    <Plus />
+                  </Button>
+                  <Link
+                    href="/dashboard"
+                    rel="noopener noreferrer"
+                    className="flex-1"
+                  >
+                    <Button
+                      variant="outline"
+                      className="px-4 py-2 rounded-md w-full"
+                    >
+                      Dashboard
+                    </Button>
+                  </Link>
+                </div>
+                <Button
+                  variant="default"
+                  className="px-4 py-2 rounded-md w-full"
+                  onClick={handleLogout}
+                >
+                  Keluar
+                </Button>
+              </>
             ) : (
-              <a href="/login">
-                <button className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-                  Masuk Sekarang
-                </button>
-              </a>
+              <>
+                <Link href="/login" rel="noopener noreferrer">
+                  <Button
+                    variant="outline"
+                    className="w-full text-blue-600 hover:bg-blue-50 px-4 py-2 rounded-lg border mb-2"
+                  >
+                    Lapor Barang Temuan
+                  </Button>
+                </Link>
+                <Link href="/login" rel="noopener noreferrer">
+                  <Button
+                    variant="default"
+                    className="w-full bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                  >
+                    Masuk Sekarang
+                  </Button>
+                </Link>
+              </>
             )}
           </div>
         </div>
